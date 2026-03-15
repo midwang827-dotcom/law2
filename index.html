@@ -5,862 +5,1031 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>行政复议文书练习系统</title>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #f7f6f2;
-  --surface: #ffffff;
-  --surface2: #f2f1ed;
-  --border: rgba(0,0,0,0.09);
-  --border2: rgba(0,0,0,0.16);
-  --text: #1c1c1a;
-  --text2: #56564f;
-  --text3: #9a9a90;
-  --purple: #3C3489;
-  --purple-light: #EEEDFE;
-  --purple-mid: #534AB7;
-  --green: #0F6E56;
-  --green-light: #E1F5EE;
-  --blue-light: #E8F2FC;
-  --blue: #185FA5;
-  --amber-light: #FEF3E2;
-  --amber: #7A4A0A;
-  --red-light: #FEF0F0;
-  --red: #9B2B2B;
-  --r: 10px;
-  --r-sm: 6px;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f4f3ef;--sur:#fff;--sur2:#eeede8;--sur3:#e5e4de;
+  --bd:rgba(0,0,0,.08);--bd2:rgba(0,0,0,.14);--bd3:rgba(0,0,0,.22);
+  --tx:#18180f;--tx2:#505048;--tx3:#8c8c82;
+  --pu:#342f8a;--pul:#eceafe;--pu2:#5046c8;
+  --gn:#0a6045;--gnl:#dff4ec;
+  --bl:#1252a0;--bll:#e4eefb;
+  --am:#7a4606;--aml:#fef3df;
+  --rd:#8a1c1c;--rdl:#fdeaea;
+  --gold:#6b5200;--goldl:#fdf7e3;
+  --r:10px;--rs:6px;
 }
-body { font-family: 'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+body{font-family:'PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;line-height:1.65;font-size:14px}
 
-nav { background: var(--surface); border-bottom: 0.5px solid var(--border2); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 100; }
-.nav-brand { font-size: 15px; font-weight: 700; color: var(--purple); display: flex; align-items: center; gap: 8px; letter-spacing: -0.2px; }
-.nav-badge { font-size: 10px; font-weight: 500; background: var(--purple-light); color: var(--purple); padding: 2px 7px; border-radius: 8px; }
-.nav-links { display: flex; }
-.nav-link { padding: 0 13px; height: 56px; display: flex; align-items: center; font-size: 14px; color: var(--text2); cursor: pointer; border-bottom: 2px solid transparent; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; transition: all 0.15s; }
-.nav-link:hover { color: var(--text); }
-.nav-link.active { color: var(--purple); border-bottom-color: var(--purple); font-weight: 600; }
+nav{background:var(--sur);border-bottom:1px solid var(--bd2);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;position:sticky;top:0;z-index:300}
+.brand{font-size:14px;font-weight:800;color:var(--pu);display:flex;align-items:center;gap:8px}
+.brand-badge{font-size:10px;font-weight:700;background:var(--pul);color:var(--pu);padding:2px 8px;border-radius:5px}
+.nav-tabs{display:flex}
+.nt{height:56px;padding:0 13px;display:flex;align-items:center;font-size:13px;font-weight:600;color:var(--tx3);cursor:pointer;border-bottom:2.5px solid transparent;border-top:none;border-left:none;border-right:none;background:none;font-family:inherit;transition:all .15s}
+.nt:hover{color:var(--tx)}.nt.on{color:var(--pu);border-bottom-color:var(--pu)}
 
-.page { display: none; }
-.page.active { display: block; }
+.pg{display:none}.pg.on{display:block}
 
 /* HOME */
-.hero { max-width: 780px; margin: 0 auto; padding: 4rem 2rem 1.5rem; }
-.hero-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-light); color: var(--purple); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 8px; margin-bottom: 1.5rem; }
-.hero h1 { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -1px; }
-.hero h1 em { font-style: normal; color: var(--purple); }
-.hero p { font-size: 15px; color: var(--text2); max-width: 600px; margin-bottom: 2rem; line-height: 1.75; }
-.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.hero{max-width:800px;margin:0 auto;padding:4rem 2rem 2rem}
+.htag{display:inline-flex;align-items:center;gap:5px;background:var(--pul);color:var(--pu);font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:1.25rem;letter-spacing:.4px}
+.hero h1{font-size:38px;font-weight:900;line-height:1.15;margin-bottom:.9rem;letter-spacing:-1.5px}
+.hero h1 em{font-style:normal;color:var(--pu)}
+.hero p{font-size:14px;color:var(--tx2);max-width:600px;margin-bottom:1.75rem;line-height:1.8}
+.hbtns{display:flex;gap:9px;flex-wrap:wrap}
+.fgrid{max-width:800px;margin:0 auto;padding:1.5rem 2rem 3rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.fc{background:var(--sur);border:.5px solid var(--bd);border-radius:var(--r);padding:1.2rem}
+.fc-ic{font-size:18px;margin-bottom:8px}.fc-t{font-size:13px;font-weight:800;margin-bottom:4px}.fc-d{font-size:12px;color:var(--tx2);line-height:1.65}
+.disc{max-width:800px;margin:0 auto 3rem;padding:0 2rem}
+.disc-box{background:var(--aml);border:.5px solid #f0c070;border-radius:var(--r);padding:.9rem 1.25rem;font-size:12px;color:var(--am);line-height:1.75}
+.disc-box strong{display:block;font-size:13px;font-weight:800;margin-bottom:3px}
 
-.btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 22px; border-radius: var(--r-sm); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s; font-family: inherit; border: none; text-decoration: none; }
-.btn-primary { background: var(--purple); color: #fff; }
-.btn-primary:hover { background: #2e2870; }
-.btn-primary:disabled { background: var(--surface2); color: var(--text3); cursor: not-allowed; }
-.btn-outline { background: transparent; color: var(--text); border: 0.5px solid var(--border2); }
-.btn-outline:hover { background: var(--surface2); }
-.btn-green { background: var(--green); color: #fff; }
-.btn-green:hover { background: #0a5240; }
-
-.features { max-width: 780px; margin: 0 auto; padding: 2rem 2rem 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
-.fcard { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r); padding: 1.25rem; }
-.fcard-icon { font-size: 20px; margin-bottom: 10px; }
-.fcard-title { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
-.fcard-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
-
-.disclaimer { max-width: 780px; margin: 0 auto 3rem; padding: 0 2rem; }
-.disclaimer-box { background: var(--amber-light); border: 0.5px solid #f5c97a; border-radius: var(--r); padding: 1rem 1.25rem; font-size: 13px; color: var(--amber); line-height: 1.7; }
-.disclaimer-box strong { display: block; font-size: 14px; margin-bottom: 3px; }
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:9px 20px;border-radius:var(--rs);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;font-family:inherit;border:none;letter-spacing:.1px}
+.bp{background:var(--pu);color:#fff}.bp:hover{background:#26228a}.bp:disabled{background:var(--sur2);color:var(--tx3);cursor:not-allowed}
+.bo{background:transparent;color:var(--tx);border:.5px solid var(--bd2)}.bo:hover{background:var(--sur2)}
+.bg{background:var(--gn);color:#fff}.bg:hover{background:#084e38}
 
 /* PRACTICE */
-.practice-wrap { max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+.pw{max-width:800px;margin:0 auto;padding:1.75rem 1.5rem 6rem}
+.pbar{display:flex;align-items:center;margin-bottom:2.25rem}
+.sdot{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.dot{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bd2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;background:var(--sur);color:var(--tx3);transition:all .2s}
+.dot.on{background:var(--pu);border-color:var(--pu);color:#fff}.dot.dn{background:var(--gn);border-color:var(--gn);color:#fff}
+.dlbl{font-size:10px;color:var(--tx3);text-align:center;line-height:1.3;max-width:56px;white-space:pre-line}
+.sline{height:1.5px;flex:1;background:var(--bd);margin-bottom:20px;transition:background .3s}.sline.dn{background:var(--gn)}
 
-.progress-bar { display: flex; align-items: center; margin-bottom: 2.5rem; }
-.step-dot { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; }
-.dot { width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: var(--surface); color: var(--text3); transition: all 0.2s; }
-.dot.active { background: var(--purple); border-color: var(--purple); color: #fff; }
-.dot.done { background: var(--green); border-color: var(--green); color: #fff; }
-.dot-label { font-size: 10px; color: var(--text3); text-align: center; line-height: 1.3; max-width: 60px; white-space: pre-line; }
-.step-line { height: 1.5px; flex: 1; background: var(--border); margin-bottom: 20px; transition: background 0.3s; }
-.step-line.done { background: var(--green); }
+.card{background:var(--sur);border:.5px solid var(--bd);border-radius:var(--r);padding:1.5rem;margin-bottom:1rem}
+.ctitle{font-size:16px;font-weight:800;margin-bottom:1.25rem;display:flex;align-items:center;gap:8px;letter-spacing:-.2px}
+.sbadge{font-size:10px;background:var(--pul);color:var(--pu);padding:2px 8px;border-radius:5px;font-weight:800;letter-spacing:.3px}
 
-.card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r); padding: 1.5rem; margin-bottom: 1rem; }
-.card-title { font-size: 17px; font-weight: 700; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px; }
-.card-title .step-badge { font-size: 11px; background: var(--purple-light); color: var(--purple); padding: 2px 8px; border-radius: 6px; font-weight: 600; }
+.fg{margin-bottom:.9rem}
+.fl{font-size:12px;color:var(--tx2);margin-bottom:4px;display:flex;align-items:center;gap:4px;font-weight:700;letter-spacing:.2px}
+.fl .req{color:#b02020}.fl .hint{font-weight:400;color:var(--tx3);font-size:11px}
+input[type=text],input[type=date],select,textarea{width:100%;padding:8px 10px;border:.5px solid var(--bd2);border-radius:var(--rs);background:var(--sur);color:var(--tx);font-size:13px;font-family:inherit;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--pu2);box-shadow:0 0 0 3px rgba(80,70,200,.1)}
+textarea{min-height:68px;resize:vertical;line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.sdiv{font-size:10px;font-weight:800;color:var(--tx3);letter-spacing:.8px;text-transform:uppercase;margin:1.5rem 0 .9rem;padding-bottom:6px;border-bottom:.5px solid var(--bd)}
 
-.field-group { margin-bottom: 1rem; }
-.field-label { font-size: 13px; color: var(--text2); margin-bottom: 5px; display: block; font-weight: 500; }
-.field-label .req { color: #c0392b; margin-left: 2px; }
-input[type=text], input[type=date], select, textarea {
-  width: 100%; padding: 8px 10px;
-  border: 0.5px solid var(--border2);
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 14px;
-  font-family: inherit;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-input:focus, select:focus, textarea:focus { outline: none; border-color: var(--purple-mid); box-shadow: 0 0 0 3px rgba(83,74,183,0.12); }
-textarea { min-height: 72px; resize: vertical; line-height: 1.6; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+/* CHECKBOX */
+.cbgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.cbi{display:flex;align-items:flex-start;gap:9px;padding:10px 12px;border:.5px solid var(--bd);border-radius:var(--rs);cursor:pointer;transition:all .15s;user-select:none}
+.cbi:hover{background:var(--sur2);border-color:var(--bd2)}.cbi.on{border-color:var(--pu2);background:var(--pul)}
+.cbi input[type=checkbox]{margin-top:2px;flex-shrink:0;width:14px;height:14px;accent-color:var(--pu)}
+.cb-t{font-size:12px;font-weight:800;color:var(--tx)}.cb-d{display:block;font-size:11px;color:var(--tx2);margin-top:2px;font-weight:400;line-height:1.45}
 
-.section-divider { font-size: 12px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin: 1.5rem 0 1rem; padding-bottom: 6px; border-bottom: 0.5px solid var(--border); }
+/* ISSUE CARDS (step 4) */
+.icard{border:.5px solid var(--bd);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
+.icard-head{padding:12px 15px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;background:var(--sur);transition:background .12s}
+.icard-head:hover{background:var(--sur2)}
+.icard-htitle{font-size:13px;font-weight:800;display:flex;align-items:center;gap:8px}
+.icard-toggle{font-size:11px;color:var(--tx3)}
+.icard-body{display:none;padding:0 15px 15px;border-top:.5px solid var(--bd)}
+.icard-body.open{display:block}
 
-.checkbox-group { display: flex; flex-direction: column; gap: 8px; }
-.checkbox-group-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.cb-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 13px; border: 0.5px solid var(--border); border-radius: var(--r-sm); cursor: pointer; transition: all 0.15s; user-select: none; }
-.cb-item:hover { background: var(--surface2); border-color: var(--border2); }
-.cb-item.checked { border-color: var(--purple-mid); background: var(--purple-light); }
-.cb-item input[type=checkbox] { margin-top: 2px; flex-shrink: 0; width: 15px; height: 15px; accent-color: var(--purple); }
-.cb-text { font-size: 13px; font-weight: 600; color: var(--text); }
-.cb-text small { display: block; font-size: 12px; color: var(--text2); margin-top: 2px; font-weight: 400; line-height: 1.5; }
+/* LAW SELECTOR */
+.law-picker-wrap{margin:12px 0}
+.law-picker-label{font-size:11px;font-weight:800;color:var(--tx3);letter-spacing:.5px;margin-bottom:7px;text-transform:uppercase}
+.law-items{display:flex;flex-direction:column;gap:5px}
+.law-item{display:flex;flex-direction:column;border:.5px solid var(--bd);border-radius:var(--rs);overflow:hidden;transition:border-color .15s}
+.law-item.selected{border-color:var(--pu2)}
+.law-item-top{display:flex;align-items:center;gap:0;background:var(--sur)}
+.law-item-top:hover{background:var(--sur2)}
+.law-item-check{display:flex;align-items:center;padding:9px 12px;cursor:pointer;flex:1;gap:9px}
+.law-item-check input[type=checkbox]{width:14px;height:14px;flex-shrink:0;accent-color:var(--pu)}
+.law-item-name{font-size:12px;font-weight:700;color:var(--tx)}
+.law-item-detail-btn{padding:9px 12px;font-size:11px;color:var(--bl);cursor:pointer;white-space:nowrap;border-left:.5px solid var(--bd);background:var(--sur);font-family:inherit;border-top:none;border-right:none;border-bottom:none;font-weight:600;transition:background .12s}
+.law-item-detail-btn:hover{background:var(--bll)}
+.law-item-detail{display:none;padding:10px 13px;background:#fffdf5;border-top:.5px solid #e8d890;font-size:12px;color:#3a3000;line-height:1.85}
+.law-item-detail.open{display:block}
+.law-item.selected .law-item-top{background:var(--pul)}
 
-.rule-match { background: var(--surface2); border-left: 3px solid var(--purple); border-radius: 0 var(--r-sm) var(--r-sm) 0; padding: 12px 16px; margin-bottom: 10px; }
-.rule-title { font-size: 14px; font-weight: 700; color: var(--purple); margin-bottom: 5px; }
-.rule-body { font-size: 13px; color: var(--text2); line-height: 1.7; }
-.rule-law { font-size: 12px; color: var(--blue); margin-top: 5px; font-weight: 500; }
+/* ANALYSIS TEXT */
+.analysis-block{margin-top:12px}
+.analysis-title{font-size:11px;font-weight:800;color:var(--tx3);letter-spacing:.5px;margin-bottom:7px;text-transform:uppercase}
+.analysis-text{font-size:13px;color:var(--tx2);line-height:1.85;white-space:pre-wrap}
 
-.timeline-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 6px; }
-.t-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; padding-top: 4px; }
-.t-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--purple); }
-.t-line { width: 1.5px; background: var(--border2); height: 18px; margin-top: 3px; }
-.t-date { width: 90px; font-size: 12px; color: var(--text3); flex-shrink: 0; padding-top: 3px; }
-.t-label { font-size: 13px; padding-top: 2px; }
+/* CAT BADGES */
+.cat-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px}
+.cat-proc{background:var(--bll);color:var(--bl)}
+.cat-evid{background:var(--aml);color:var(--am)}
+.cat-sub{background:var(--rdl);color:var(--rd)}
+.cat-prop{background:var(--gnl);color:var(--gn)}
 
-.doc-wrap { position: relative; }
-.doc-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.doc-label { font-size: 12px; color: var(--text3); font-weight: 600; }
-.copy-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; padding: 4px 10px; border-radius: var(--r-sm); border: 0.5px solid var(--border2); background: var(--surface); color: var(--text2); cursor: pointer; transition: all 0.15s; font-family: inherit; font-weight: 500; }
-.copy-btn:hover { background: var(--surface2); }
-.doc-output {
-  background: #fdfcf8;
-  border: 0.5px solid var(--border2);
-  border-radius: var(--r-sm);
-  padding: 1.5rem 1.75rem;
-  font-size: 14px;
-  line-height: 2.1;
-  white-space: pre-wrap;
-  font-family: 'Noto Serif SC','STSong','SimSun',serif;
-  color: var(--text);
-  min-height: 200px;
-}
+/* TIMELINE */
+.tl-item{display:flex;gap:9px;align-items:flex-start;margin-bottom:7px}
+.tl-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:5px}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--pu);flex-shrink:0}
+.tl-ln{width:1.5px;background:var(--bd2);height:18px;margin-top:3px}
+.tl-date{width:86px;font-size:11px;color:var(--tx3);flex-shrink:0;padding-top:3px;font-weight:600}
+.tl-lbl{font-size:13px;padding-top:2px;line-height:1.5}
 
-.info-box { background: var(--blue-light); border: 0.5px solid #aed0f0; border-radius: var(--r-sm); padding: 10px 14px; font-size: 13px; color: var(--blue); margin-bottom: 1rem; line-height: 1.65; }
-.warn-box { background: var(--amber-light); border: 0.5px solid #f5c97a; border-radius: var(--r-sm); padding: 10px 14px; font-size: 13px; color: var(--amber); margin-bottom: 1rem; line-height: 1.65; }
+/* INFO BOXES */
+.ibox{background:var(--bll);border:.5px solid #a8cef0;border-radius:var(--rs);padding:9px 13px;font-size:12px;color:var(--bl);margin-bottom:1rem;line-height:1.7}
+.wbox{background:var(--aml);border:.5px solid #f0c070;border-radius:var(--rs);padding:9px 13px;font-size:12px;color:var(--am);margin-bottom:7px;line-height:1.7}
+.gbox{background:var(--gnl);border:.5px solid #7dcfb0;border-radius:var(--rs);padding:9px 13px;font-size:12px;color:var(--gn);margin-bottom:7px;line-height:1.7}
 
-.btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; gap: 8px; flex-wrap: wrap; }
-.btn-row-right { display: flex; gap: 8px; flex-wrap: wrap; }
+/* DOC OUTPUT */
+.doc-wrap{background:#fdfcf6;border:1px solid var(--bd3);border-radius:var(--r);overflow:hidden}
+.doc-hdr{background:var(--sur2);padding:9px 15px;display:flex;justify-content:space-between;align-items:center;border-bottom:.5px solid var(--bd2)}
+.doc-hlbl{font-size:11px;font-weight:800;color:var(--tx2);letter-spacing:.4px}
+.doc-body{padding:2rem 2.25rem;font-size:14px;line-height:2.15;white-space:pre-wrap;font-family:'Noto Serif SC','STSong','SimSun',Georgia,serif;color:var(--tx)}
+.copybtn{font-size:11px;padding:4px 10px;border-radius:var(--rs);border:.5px solid var(--bd2);background:var(--sur);color:var(--tx2);cursor:pointer;font-family:inherit;font-weight:700;transition:all .15s}
+.copybtn:hover{background:var(--sur3)}
 
-.empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--text3); font-size: 14px; }
-.empty-state .ei { font-size: 28px; margin-bottom: 8px; }
+.brow{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;gap:8px;flex-wrap:wrap}
+.browr{display:flex;gap:8px;flex-wrap:wrap}
+.empty{text-align:center;padding:3rem 1rem;color:var(--tx3);font-size:13px}
+.empty .ei{font-size:28px;margin-bottom:8px}
+
+/* LAWS PAGE */
+.lw{max-width:800px;margin:0 auto;padding:2.5rem 2rem 6rem}
+.lw h2{font-size:24px;font-weight:900;margin-bottom:.35rem;letter-spacing:-.5px}
+.lw-sub{font-size:13px;color:var(--tx2);margin-bottom:2rem}
+.law-act-section{margin-bottom:2.5rem}
+.law-act-title{font-size:14px;font-weight:900;color:var(--pu);margin-bottom:1rem;padding-bottom:7px;border-bottom:2px solid var(--pul)}
+.law-art{background:var(--sur);border:.5px solid var(--bd);border-radius:var(--r);margin-bottom:7px;overflow:hidden}
+.law-art-head{padding:11px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .12s}
+.law-art-head:hover{background:var(--sur2)}
+.law-art-no{font-size:12px;font-weight:800;color:var(--pu)}
+.law-art-peek{font-size:12px;color:var(--tx3);max-width:380px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.law-art-body{display:none;padding:10px 14px 14px;border-top:.5px solid var(--bd);font-size:13px;color:var(--tx2);line-height:1.85;background:#fffdf5}
+.law-art-body.open{display:block}
 
 /* HELP */
-.help-wrap { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-.help-wrap h2 { font-size: 26px; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
-.help-subtitle { font-size: 15px; color: var(--text2); margin-bottom: 2.5rem; }
-.help-section { margin-bottom: 2.25rem; }
-.help-section h3 { font-size: 15px; font-weight: 700; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 7px; }
-.help-section p, .help-section li { font-size: 14px; color: var(--text2); line-height: 1.8; }
-.help-section ul, .help-section ol { padding-left: 1.3rem; }
-.help-section li { margin-bottom: 5px; }
-.step-cards { display: flex; flex-direction: column; gap: 9px; }
-.step-card { display: flex; gap: 13px; background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--r); padding: 13px 15px; }
-.snum { width: 27px; height: 27px; border-radius: 50%; background: var(--purple); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.sinfo strong { font-size: 14px; font-weight: 700; display: block; margin-bottom: 2px; }
-.sinfo span { font-size: 13px; color: var(--text2); }
-.faq-item { border: 0.5px solid var(--border); border-radius: var(--r-sm); margin-bottom: 7px; overflow: hidden; }
-.faq-q { padding: 12px 14px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
-.faq-q:hover { background: var(--surface2); }
-.faq-a { padding: 0 14px; font-size: 13px; color: var(--text2); line-height: 1.75; max-height: 0; overflow: hidden; transition: all 0.2s; }
-.faq-a.open { padding: 10px 14px 14px; max-height: 400px; }
+.hw{max-width:720px;margin:0 auto;padding:2.5rem 2rem 6rem}
+.hw h2{font-size:24px;font-weight:900;margin-bottom:.35rem;letter-spacing:-.5px}
+.hw-sub{font-size:13px;color:var(--tx2);margin-bottom:2rem}
+.hs{margin-bottom:2.25rem}
+.hs h3{font-size:13px;font-weight:800;margin-bottom:.8rem;display:flex;align-items:center;gap:6px}
+.hs p,.hs li{font-size:13px;color:var(--tx2);line-height:1.8}
+.hs ul,.hs ol{padding-left:1.25rem}.hs li{margin-bottom:4px}
+.scard{display:flex;gap:11px;background:var(--sur);border:.5px solid var(--bd);border-radius:var(--r);padding:12px 14px;margin-bottom:7px}
+.sn{width:24px;height:24px;border-radius:50%;background:var(--pu);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.si strong{font-size:13px;font-weight:800;display:block;margin-bottom:1px}.si span{font-size:12px;color:var(--tx2)}
+.faq-i{border:.5px solid var(--bd);border-radius:var(--rs);margin-bottom:6px;overflow:hidden}
+.faq-q{padding:11px 13px;font-size:13px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--sur)}
+.faq-q:hover{background:var(--sur2)}
+.faq-a{padding:0 13px;font-size:12px;color:var(--tx2);line-height:1.8;max-height:0;overflow:hidden;transition:all .2s}
+.faq-a.open{padding:9px 13px 13px;max-height:500px}
 
-footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--text3); border-top: 0.5px solid var(--border); margin-top: 2rem; }
+footer{text-align:center;padding:1.75rem;font-size:11px;color:var(--tx3);border-top:.5px solid var(--bd);margin-top:2rem}
 
-@media (max-width: 620px) {
-  .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  .checkbox-group-row { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 26px; }
-  nav { padding: 0 1rem; }
-  .nav-badge { display: none; }
+@media(max-width:640px){
+  .g2,.g3,.cbgrid{grid-template-columns:1fr}
+  .hero h1{font-size:26px}
+  nav{padding:0 1rem}
+  .brand-badge{display:none}
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-brand">⚖️ 行政复议文书练习系统 <span class="nav-badge">模拟练习</span></div>
-  <div class="nav-links">
-    <button class="nav-link active" onclick="showPage('home')">首页</button>
-    <button class="nav-link" onclick="showPage('practice')">开始练习</button>
-    <button class="nav-link" onclick="showPage('help')">使用说明</button>
+  <div class="brand">⚖️ 行政复议文书练习系统 <span class="brand-badge">律师级 · 完全离线</span></div>
+  <div class="nav-tabs">
+    <button class="nt on" onclick="showPg('home')">首页</button>
+    <button class="nt" onclick="showPg('practice')">开始练习</button>
+    <button class="nt" onclick="showPg('laws')">法条速查</button>
+    <button class="nt" onclick="showPg('help')">说明</button>
   </div>
 </nav>
 
-<!-- HOME -->
-<div id="page-home" class="page active">
+<div id="pg-home" class="pg on">
   <div class="hero">
-    <div class="hero-tag">⚖ 免费 · 离线可用 · 模拟练习</div>
-    <h1>行政复议文书<br><em>智能练习平台</em></h1>
-    <p>专为法律学习者设计的行政复议文书生成与练习工具。输入模拟案件信息，系统自动整理时间轴、匹配法律规则，并依据《行政复议法》《行政处罚法》等法律规定，生成结构完整、引用法条、措辞规范的申请书与答复书草稿。</p>
-    <div class="hero-actions">
-      <button class="btn btn-primary" onclick="showPage('practice')">▶ 开始练习</button>
-      <button class="btn btn-outline" onclick="showPage('help')">查看使用说明</button>
+    <div class="htag">⚖ 免费 · 完全离线 · 律师事务所级文书</div>
+    <h1>行政复议文书<br><em>专业练习平台</em></h1>
+    <p>你只需填写案件的基本事实——人名、时间、地点、机构名称。系统提供完整法条库供你选择，并自动生成引用法条原文、论述深入、格式正式的申请书与答复书，达到律师事务所出具文书的专业水准。</p>
+    <div class="hbtns">
+      <button class="btn bp" onclick="showPg('practice')">▶ 开始练习</button>
+      <button class="btn bo" onclick="showPg('laws')">📖 法条速查</button>
     </div>
   </div>
-  <div class="features">
-    <div class="fcard"><div class="fcard-icon">📋</div><div class="fcard-title">详细案件录入</div><div class="fcard-desc">涵盖基本信息、当事人信息、行政行为详情，7步完整录入。</div></div>
-    <div class="fcard"><div class="fcard-icon">📅</div><div class="fcard-title">自动时间轴</div><div class="fcard-desc">输入节点后即时生成可视化时间轴，帮助发现程序违法点。</div></div>
-    <div class="fcard"><div class="fcard-icon">⚡</div><div class="fcard-title">15项争议点</div><div class="fcard-desc">覆盖程序违法、证据瑕疵、实体错误、比例原则等多维度。</div></div>
-    <div class="fcard"><div class="fcard-icon">📖</div><div class="fcard-title">精准引用法条</div><div class="fcard-desc">每项争议点自动匹配《行政处罚法》《行政复议法》等具体条款。</div></div>
-    <div class="fcard"><div class="fcard-icon">📝</div><div class="fcard-title">长篇规范文书</div><div class="fcard-desc">生成接近真实律师水准的完整文书，篇幅充实，逻辑严密。</div></div>
-    <div class="fcard"><div class="fcard-icon">🔒</div><div class="fcard-title">完全离线</div><div class="fcard-desc">无需联网，无需注册，所有数据仅存于本地，关闭即清除。</div></div>
+  <div class="fgrid">
+    <div class="fc"><div class="fc-ic">✏️</div><div class="fc-t">只填事实，其余自动</div><div class="fc-d">人名、时间、地点、机构名称——这些你才知道。法律分析与引用全部由系统完成。</div></div>
+    <div class="fc"><div class="fc-ic">📖</div><div class="fc-t">法条可点击查看全文</div><div class="fc-d">每项争议点下提供可选法条，点击任意法条即可展开查看完整原文，选中后自动引入文书。</div></div>
+    <div class="fc"><div class="fc-ic">⚖️</div><div class="fc-t">律所级文书水准</div><div class="fc-d">申请书与答复书均按正式法律文书格式生成，每项争议点深度论述，法条全文嵌入正文。</div></div>
+    <div class="fc"><div class="fc-ic">📅</div><div class="fc-t">时间轴自动预警</div><div class="fc-d">系统自动检测送达超期、申请期限临近等问题，直接提示具体天数与对应法条。</div></div>
+    <div class="fc"><div class="fc-ic">🔒</div><div class="fc-t">完全离线，无需注册</div><div class="fc-d">单个HTML文件，无服务器，无数据库，关闭即清除，不留任何记录。</div></div>
+    <div class="fc"><div class="fc-ic">🔄</div><div class="fc-t">双视角对比练习</div><div class="fc-d">申请书与答复书一键分别生成，同一案件两种立场，对比学习提升更快。</div></div>
   </div>
-  <div class="disclaimer">
-    <div class="disclaimer-box">
+  <div class="disc">
+    <div class="disc-box">
       <strong>⚠ 重要声明</strong>
-      本工具仅供法律学习与文书写作练习使用。所有案件信息均为模拟虚构，不涉及任何真实当事人及案件。系统生成的文书草稿仅供参考练习，不构成任何法律意见或法律服务。如有真实法律需求，请咨询持证执业律师。
+      本工具仅供法律学习与文书写作练习使用。所有案件信息均为模拟虚构，不涉及任何真实当事人。系统内置法条以2021年《行政处罚法》、2023年《行政复议法》为准，使用时请核对最新现行版本。生成的文书仅供练习参考，不构成任何法律意见。
     </div>
   </div>
 </div>
 
-<!-- PRACTICE -->
-<div id="page-practice" class="page">
-  <div class="practice-wrap">
-    <div class="progress-bar" id="progressBar"></div>
-    <div id="stepContent"></div>
+<div id="pg-practice" class="pg">
+  <div class="pw">
+    <div class="pbar" id="pbar"></div>
+    <div id="sc"></div>
   </div>
 </div>
 
-<!-- HELP -->
-<div id="page-help" class="page">
-  <div class="help-wrap">
+<!-- LAWS PAGE -->
+<div id="pg-laws" class="pg">
+  <div class="lw">
+    <h2>法条速查</h2>
+    <p class="lw-sub">点击任意法条展开查看完整原文。练习时在争议点选择界面可直接勾选对应法条引入文书。</p>
+    <div id="lawsPageContent"></div>
+    <div style="margin-top:2.5rem;text-align:center">
+      <button class="btn bp" onclick="showPg('practice')">▶ 开始练习</button>
+    </div>
+  </div>
+</div>
+
+<div id="pg-help" class="pg">
+  <div class="hw">
     <h2>使用说明</h2>
-    <p class="help-subtitle">了解如何使用本系统进行行政复议文书练习</p>
-    <div class="help-section">
+    <p class="hw-sub">本系统设计原则：你只填事实，系统完成法律</p>
+    <div class="hs">
       <h3>🧭 练习流程（共 7 步）</h3>
-      <div class="step-cards">
-        <div class="step-card"><div class="snum">1</div><div class="sinfo"><strong>案件基本信息</strong><span>填写申请人、被申请人、行政行为类型与内容，建立案件基础框架。</span></div></div>
-        <div class="step-card"><div class="snum">2</div><div class="sinfo"><strong>当事人详细信息</strong><span>填写申请人联系信息、代理人（如有），以及被申请人机关性质等。</span></div></div>
-        <div class="step-card"><div class="snum">3</div><div class="sinfo"><strong>案件时间轴</strong><span>填写各关键时间节点，系统自动生成时间轴并提示可能的程序问题。</span></div></div>
-        <div class="step-card"><div class="snum">4</div><div class="sinfo"><strong>争议点选择</strong><span>从15项争议点中多选，覆盖程序违法、证据瑕疵、实体错误、比例原则等方向。</span></div></div>
-        <div class="step-card"><div class="snum">5</div><div class="sinfo"><strong>法律规则分析</strong><span>系统自动匹配每项争议点的具体法条依据和分析意见。</span></div></div>
-        <div class="step-card"><div class="snum">6</div><div class="sinfo"><strong>生成申请人文书</strong><span>系统生成结构完整、引用法条、措辞规范的行政复议申请书。</span></div></div>
-        <div class="step-card"><div class="snum">7</div><div class="sinfo"><strong>生成被申请人文书</strong><span>从被申请机关视角生成答复书，用于对比两种立场的写作技巧。</span></div></div>
-      </div>
+      <div class="scard"><div class="sn">1</div><div class="si"><strong>案件基本信息</strong><span>行政行为类型、具体内容、决定书文号等，系统据此构建文书框架。</span></div></div>
+      <div class="scard"><div class="sn">2</div><div class="si"><strong>当事人详细信息</strong><span>申请人假名、地址、联系方式，被申请人机关名称与地址。</span></div></div>
+      <div class="scard"><div class="sn">3</div><div class="si"><strong>案件时间轴</strong><span>填写各关键时间节点，系统自动检测超期情形并提示具体法条。</span></div></div>
+      <div class="scard"><div class="sn">4</div><div class="si"><strong>争议点与法条选择（核心步骤）</strong><span>勾选本案争议点，每项下提供可选法条，点击法条可查看全文，勾选即引入文书。</span></div></div>
+      <div class="scard"><div class="sn">5</div><div class="si"><strong>规则分析预览</strong><span>确认每项争议点的分析内容与选中法条，修改后可返回调整。</span></div></div>
+      <div class="scard"><div class="sn">6</div><div class="si"><strong>生成申请人文书</strong><span>一键生成完整申请书，法条全文嵌入正文，律所级深度论述。</span></div></div>
+      <div class="scard"><div class="sn">7</div><div class="si"><strong>生成被申请人文书</strong><span>从被申请机关视角生成答复书，逐条反驳，对比练习。</span></div></div>
     </div>
-    <div class="help-section" style="margin-top:2rem;">
+    <div class="hs" style="margin-top:1.75rem">
       <h3>❓ 常见问题</h3>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">需要联网吗？<span>＋</span></div><div class="faq-a">不需要。本系统完全离线运行，文书由内置模板自动生成，无需调用任何网络接口。</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">我的信息会被保存吗？<span>＋</span></div><div class="faq-a">不会。本工具是单个HTML文件，不含服务器或数据库，所有信息仅存在于当前页面内存中，关闭页面后立即清除。</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">可以用于真实案件吗？<span>＋</span></div><div class="faq-a">不建议直接使用。本工具生成的文书为练习模板，真实案件的法律文书应由具有执业资格的律师根据具体案情撰写，不可直接套用。</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">行政复议申请期限是多久？<span>＋</span></div><div class="faq-a">根据《行政复议法》第二十三条，申请人应当自知道该具体行政行为之日起六十日内提出行政复议申请，法律规定的申请期限超过六十日的除外。因不可抗力或其他正当理由耽误法定申请期限的，申请期限自障碍消除之日起继续计算。</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">什么情况下可以申请行政复议？<span>＋</span></div><div class="faq-a">根据《行政复议法》第六条，公民、法人或者其他组织对行政拘留、暂扣或者吊销许可证和执照、责令停产停业、没收违法所得、没收非法财物、罚款、警告等行政处罚决定不服的，均可申请行政复议。</div></div>
-    </div>
-    <div class="help-section" style="margin-top:2rem;">
-      <h3>📖 相关法律条文速查</h3>
-      <ul>
-        <li>《行政复议法》第六条：可申请复议的情形</li>
-        <li>《行政复议法》第二十三条：六十日申请期限</li>
-        <li>《行政处罚法》第三十一条：告知陈述申辩权</li>
-        <li>《行政处罚法》第四十一条：未依法告知的法律后果</li>
-        <li>《行政处罚法》第四十二条：听证程序适用范围</li>
-        <li>《行政处罚法》第五条：处罚与违法行为相当原则（比例原则）</li>
-        <li>《司法鉴定程序通则》第十五条：鉴定材料的收取与保管</li>
-        <li>《道路交通安全法》第九十一条：饮酒驾车处罚标准</li>
-      </ul>
-    </div>
-    <div style="margin-top:2.5rem;text-align:center;">
-      <button class="btn btn-primary" onclick="showPage('practice')">▶ 开始练习</button>
+      <div class="faq-i"><div class="faq-q" onclick="tFaq(this)">需要联网吗？<span>＋</span></div><div class="faq-a">完全不需要。本系统是单个HTML文件，所有功能在浏览器本地运行，无需任何网络连接。</div></div>
+      <div class="faq-i"><div class="faq-q" onclick="tFaq(this)">填写的信息会保存吗？<span>＋</span></div><div class="faq-a">不会。本工具不含服务器或数据库，所有填写内容仅存在于当前页面的内存中，关闭页面后立即清除。</div></div>
+      <div class="faq-i"><div class="faq-q" onclick="tFaq(this)">法条内容是否准确？<span>＋</span></div><div class="faq-a">系统内置法条以2021年修订版《行政处罚法》和2023年修订版《行政复议法》为准。实际使用时请核对最新现行版本，法律可能有后续修订。</div></div>
+      <div class="faq-i"><div class="faq-q" onclick="tFaq(this)">可以直接用于真实案件吗？<span>＋</span></div><div class="faq-a">不建议直接使用。真实案件情节千差万别，需由执业律师根据具体情况撰写文书。本工具仅供学习练习参考。</div></div>
     </div>
   </div>
 </div>
 
-<footer>行政复议文书练习系统 · 仅供学习练习使用 · 不构成法律建议</footer>
+<footer>行政复议文书练习系统 · 仅供学习练习使用 · 不构成法律建议 · 法条以最新现行版本为准</footer>
 
 <script>
+// ════════════════════════════════════════
+// LAW DATABASE
+// ════════════════════════════════════════
+const LAW_DB = {
+  acts: [
+    {
+      name: '《中华人民共和国行政处罚法》（2021年修订）',
+      short: '行政处罚法',
+      articles: [
+        { no: '第三条', title: '处罚法定原则', text: '公民、法人或者其他组织违反行政管理秩序的行为，应当给予行政处罚的，依照本法由法律、法规、规章规定，并由行政机关依照本法规定的程序实施。没有法定依据或者不遵守法定程序的，行政处罚无效。' },
+        { no: '第五条', title: '过罚相当原则', text: '行政处罚遵循公正、公开的原则。设定和实施行政处罚必须以事实为依据，与违法行为的事实、性质、情节以及社会危害程度相当。' },
+        { no: '第六条', title: '保障当事人权利', text: '实施行政处罚，纠正违法行为，应当坚持处罚与教育相结合，教育公民、法人或者其他组织自觉守法。' },
+        { no: '第二十九条', title: '一事不再罚', text: '对当事人的同一个违法行为，不得给予两次以上罚款的行政处罚。同一个违法行为违反多个法律规范应当给予罚款处罚的，按照罚款数额高的规定处罚。' },
+        { no: '第三十二条', title: '从轻减轻处罚情形', text: '当事人有下列情形之一，应当从轻或者减轻行政处罚：（一）主动消除或者减轻违法行为危害后果的；（二）受他人胁迫或者诱骗实施违法行为的；（三）主动供述行政机关尚未掌握的违法行为的；（四）配合行政机关查处违法行为有立功表现的；（五）法律、法规、规章规定其他应当从轻或者减轻行政处罚的。\n违法行为轻微并及时改正，没有造成危害后果的，不予行政处罚。初次违法且危害后果轻微并及时改正的，可以不予行政处罚。当事人有证据足以证明没有主观过错的，不予行政处罚。法律、行政法规另有规定的，从其规定。' },
+        { no: '第四十条', title: '证据充分方可处罚', text: '公民、法人或者其他组织违反行政管理秩序的行为，依法应当给予行政处罚的，行政机关必须查明事实；违法事实不清、证据不足的，不得给予行政处罚。' },
+        { no: '第四十一条', title: '未告知后果', text: '行政机关及其执法人员在作出行政处罚决定之前，不依照本法第四十四条的规定向当事人告知给予行政处罚的事实、理由和依据，或者拒绝听取当事人的陈述、申辩，行政处罚决定不能成立；当事人放弃陈述或者申辩权利的除外。' },
+        { no: '第四十四条', title: '处罚前告知义务', text: '行政机关在作出行政处罚决定之前，应当告知当事人拟作出的行政处罚内容及事实、理由、依据，并告知当事人依法享有的陈述、申辩、要求听证等权利。' },
+        { no: '第四十六条', title: '陈述申辩权', text: '当事人有权进行陈述和申辩。行政机关必须充分听取当事人的意见，对当事人提出的事实、理由和证据，应当进行复核；当事人提出的事实、理由或者证据成立的，行政机关应当采纳。行政机关不得因当事人申辩而加重处罚。' },
+        { no: '第五十三条', title: '全面客观调查', text: '除本法第五十一条规定的可以当场作出的行政处罚外，行政机关发现公民、法人或者其他组织有依法应当给予行政处罚的行为的，必须全面、客观、公正地调查，收集有关证据；必要时，依照法律、法规的规定，可以进行检查。严禁以自行取得的证据代替依法取得的证据。' },
+        { no: '第五十五条', title: '两人以上执法', text: '执法人员当场作出行政处罚决定的，应当向当事人出示执法（身份）证件，填写预定格式、编有号码的行政处罚决定书。\n行政处罚决定书应当当场交付当事人；当事人拒绝接收的，应当在行政处罚决定书上注明。' },
+        { no: '第六十一条', title: '决定书七日送达', text: '行政处罚决定书应当在宣告后当场交付当事人；当事人不在场的，行政机关应当在七日内依照《中华人民共和国民事诉讼法》的有关规定，将行政处罚决定书送达当事人。' },
+        { no: '第六十三条', title: '听证权利告知', text: '行政机关拟作出下列行政处罚决定，应当告知当事人有要求举行听证的权利；当事人要求听证的，行政机关应当组织听证：（一）较大数额罚款；（二）没收较大数额违法所得、没收较大价值非法财物；（三）降低资质等级、吊销许可证件；（四）责令停产停业、责令关闭、限制从业；（五）其他较重的行政处罚；（六）法律、法规、规章规定的其他情形。\n当事人不承担行政机关组织听证的费用。' },
+      ]
+    },
+    {
+      name: '《中华人民共和国行政复议法》（2023年修订）',
+      short: '行政复议法',
+      articles: [
+        { no: '第六条', title: '申请期限', text: '依照本法申请行政复议，行政复议机关应当依法受理。公民、法人或者其他组织认为行政机关的行政行为侵犯其合法权益的，可以自知道或者应当知道该行政行为之日起六十日内提出行政复议申请；但是法律规定的申请期限超过六十日的除外。\n因不可抗力或者其他正当理由耽误法定申请期限的，申请期限自障碍消除之日起继续计算。' },
+        { no: '第二十三条', title: '申请方式', text: '申请人申请行政复议，可以书面申请，也可以口头申请；口头申请的，行政复议机关应当当场记录申请人的基本情况、行政复议请求、申请行政复议的主要事实、理由和时间。' },
+        { no: '第二十八条', title: '复议决定种类', text: '行政复议机关负责法制工作的机构应当对被申请人作出的行政行为进行审查，提出意见，经行政复议机关的负责人同意或者集体讨论通过后，按照下列规定作出行政复议决定：\n（一）行政行为认定事实清楚，证据确凿，适用依据正确，程序合法，内容适当的，决定维持；\n（二）被申请人不履行法定职责的，决定其在一定期限内履行；\n（三）行政行为有下列情形之一的，决定撤销、变更或者确认该行政行为违法；决定撤销或者确认该行政行为违法的，可以责令被申请人在一定期限内重新作出行政行为：\n　1. 主要事实不清楚、证据不足的；\n　2. 适用依据错误的；\n　3. 违反法定程序的；\n　4. 超越职权的；\n　5. 滥用职权的；\n　6. 明显不当的。\n（四）被申请人不按照本法第二十四条的规定提出书面答复、提交当初作出行政行为的证据、依据和其他有关材料的，视为该行政行为没有证据、依据，决定撤销该行政行为。' },
+      ]
+    },
+    {
+      name: '《司法鉴定程序通则》（2016年修订）',
+      short: '司法鉴定程序通则',
+      articles: [
+        { no: '第五条', title: '鉴定资质要求', text: '司法鉴定机构和司法鉴定人应当依法取得从事司法鉴定业务的资质，在资质范围内从事司法鉴定业务，不得超出资质范围执业。' },
+        { no: '第十五条', title: '鉴定材料管理', text: '司法鉴定机构收到委托，应当对委托鉴定事项、委托人提供的鉴定材料进行审查。对于鉴定材料，应当制作《送检材料清单》，经委托人确认后，对鉴定材料进行检查、记录，对需要保管的材料，应当登记保管。' },
+        { no: '第三十五条', title: '鉴定人出庭', text: '鉴定人和鉴定机构应当对鉴定意见负责。鉴定人在诉讼中应当出庭作证，对所出具的鉴定意见进行说明和解释。经法庭通知，鉴定人拒绝出庭作证的，其鉴定意见不得作为认定案件事实的依据。' },
+      ]
+    },
+    {
+      name: '《道路交通安全法》（2021年修正）',
+      short: '道路交通安全法',
+      articles: [
+        { no: '第九十一条', title: '饮酒驾车处罚', text: '饮酒后驾驶机动车的，处暂扣六个月机动车驾驶证，并处一千元以上二千元以下罚款。因饮酒后驾驶机动车被处罚，再次饮酒后驾驶机动车的，处十日以下拘留，并处一千元以上二千元以下罚款，吊销机动车驾驶证。\n醉酒驾驶机动车的，由公安机关交通管理部门约束至酒醒，吊销机动车驾驶证，依法追究刑事责任；五年内不得重新取得机动车驾驶证。\n饮酒后驾驶营运机动车的，处十五日拘留，并处五千元罚款，吊销机动车驾驶证，五年内不得重新取得机动车驾驶证。\n醉酒驾驶营运机动车的，由公安机关交通管理部门约束至酒醒，吊销机动车驾驶证，依法追究刑事责任；十年内不得重新取得机动车驾驶证，重新取得机动车驾驶证后，不得驾驶营运机动车。' },
+      ]
+    },
+  ]
+};
+
+// Build flat lookup: "行政处罚法第四十四条" -> {text, no, actName}
+const LAW_INDEX = {};
+LAW_DB.acts.forEach(act => {
+  act.articles.forEach(art => {
+    const key = act.short + art.no;
+    LAW_INDEX[key] = { text: art.text, no: art.no, title: art.title, actName: act.name, short: act.short };
+  });
+});
+
+// ════════════════════════════════════════
+// ISSUES DATABASE  (each issue has: suggested laws, analysis template, rebuttal template)
+// ════════════════════════════════════════
+const ISSUES_LIST = [
+  {
+    id: 'no_statement', cat: '程序违法', cls: 'cat-proc', label: '未告知陈述申辩权',
+    desc: '作出处罚前未依法告知当事人陈述申辩的权利',
+    suggestedLaws: ['行政处罚法第四十一条','行政处罚法第四十四条','行政处罚法第四十六条','行政复议法第二十八条'],
+    analysis: `陈述申辩权是当事人在行政处罚程序中最基本的程序性权利，其行使以知情为前提——当事人须首先知晓行政机关拟作出的处罚事项及其依据，方能有针对性地提出事实上或法律上的异议。
+
+《行政处罚法》第四十四条明确规定，行政机关在作出行政处罚决定之前，应当告知当事人拟作出的行政处罚内容及事实、理由、依据，并告知当事人依法享有的陈述、申辩、要求听证等权利。该告知义务属于行政处罚的必经程序，非经当事人明示放弃，行政机关不得省略或简化。
+
+第四十六条进一步规定，行政机关必须充分听取当事人意见，对当事人提出的事实、理由和证据应当进行复核，且不得因当事人申辩而加重处罚。上述规定的立法目的在于保障当事人对行政处罚具有实质性的参与机会，防范行政机关在事实认定不完整、当事人陈述未获充分考量的情况下径行作出处罚。
+
+尤为重要的是，第四十一条明确规定：行政机关不依照第四十四条的规定向当事人告知事实、理由和依据，或拒绝听取陈述申辩的，"行政处罚决定不能成立"。该条款使用的措辞是"不能成立"而非"可以撤销"或"应当补正"，立法上已将此种程序违法确定为导致处罚决定根本无效的事由，不因事后补救而治愈。
+
+本案被申请人在作出行政处罚决定之前，未依法向申请人告知拟作出处罚的事实、理由及依据，未告知申请人享有陈述和申辩的权利，致使申请人在不知情的状态下直接承受处罚结果，程序违法性显著。依据上述规定，该处罚决定不能成立，请求复议机关依法予以撤销。`,
+    rebuttal: `申请人所称"未依法告知陈述申辩权"一节，与事实不符。被申请人在作出处罚决定之前，已依照《行政处罚法》第四十四条的规定，向申请人制作并送达了《行政处罚事先告知书》，告知书中载明了拟作出处罚的事实、理由、法律依据及处罚种类和幅度，并明确告知申请人享有陈述申辩权利及行使期限。申请人收悉告知书后，在法定期限内未提出任何陈述申辩意见，系对上述权利的自愿放弃，符合《行政处罚法》第四十一条"当事人放弃陈述或者申辩权利的除外"之规定。相关送达回证及工作记录均存档备查，申请人关于未告知陈述申辩权的主张缺乏事实依据，不能成立。`
+  },
+  {
+    id: 'no_hearing', cat: '程序违法', cls: 'cat-proc', label: '未告知听证权利',
+    desc: '对吊销证照等较重处罚未依法告知听证权利',
+    suggestedLaws: ['行政处罚法第六十三条','行政处罚法第四十一条','行政复议法第二十八条'],
+    analysis: `听证程序是行政处罚法律制度中保障当事人程序权利的核心机制，其功能在于通过正式、对抗性的程序，使行政机关在作出重大处罚决定前，充分听取当事人对事实认定和法律适用的意见，防范重大处罚决定建立在错误事实基础之上。
+
+《行政处罚法》第六十三条明确列举了行政机关"应当"告知当事人听证权利的情形，包括：较大数额罚款、没收较大数额违法所得或财物、降低资质等级、吊销许可证件、责令停产停业、责令关闭、限制从业，及其他较重行政处罚。该条款使用"应当"而非"可以"，意味着在符合上述情形时，告知听证权利是行政机关的法定义务而非裁量事项。
+
+本案被申请人拟作出的行政处罚为吊销证照或较重处罚，依法属于必须告知听证权利的情形。然而，被申请人在整个执法过程中，始终未向申请人告知其有权申请听证，剥夺了申请人通过正式程序就事实认定和证据效力进行当面质疑与辩驳的机会，造成申请人重大程序性权利的实质损害。
+
+听证权利的告知义务与陈述申辩权的告知义务共同构成行政处罚的必经程序，缺少任何一环均导致处罚程序不完整。依据《行政处罚法》第四十一条，不依法告知当事人权利的，行政处罚决定不能成立。该程序瑕疵属于不可补正的实质性违法，必然导致处罚决定在程序上无效。`,
+    rebuttal: `申请人所称"未告知听证权利"一节，与客观事实不符。被申请人在向申请人送达《行政处罚事先告知书》时，已在告知书中明确载明申请人有权就本案处罚申请听证，并注明了申请听证的方式、期限及联系部门。申请人在法定告知期限届满后，未就本案处罚提出听证申请，视为对该权利的自愿放弃，被申请人依照法定程序继续推进处罚程序，程序合法。申请人在复议阶段始称未被告知听证权利，与书面告知记录不符，不能成立。`
+  },
+  {
+    id: 'late_delivery', cat: '程序违法', cls: 'cat-proc', label: '决定书送达超期',
+    desc: '处罚决定书未在法定7日内依法送达当事人',
+    suggestedLaws: ['行政处罚法第六十一条','行政复议法第二十八条'],
+    analysis: `送达是行政处罚决定对当事人发生法律效力的关键程序要件。《行政处罚法》第六十一条明确规定，行政处罚决定书应当在宣告后当场交付当事人；当事人不在场的，行政机关应当在七日内依照《民事诉讼法》有关规定将行政处罚决定书送达当事人。该七日期限是法律明确设定的送达期限，具有强制性，不因行政机关内部原因或客观情形而可自行延展。
+
+法律设定七日送达期限，其目的有二：其一，使当事人能够在合理时间内知悉处罚决定的具体内容，从而及时决定是否行使陈述申辩、申请复议或提起行政诉讼等救济权利；其二，防止行政机关通过拖延送达，实质上压缩当事人的法定救济期限，损害当事人的程序性权利。
+
+结合本案时间轴，被申请人于处罚决定作出后，实际送达日距决定作出日已明显超过七日法定期限。超期送达的直接后果是：申请人在超期期间无从知悉处罚决定内容，无法在第一时间行使法律救济权利，法定救济期限客观上因此被压缩。
+
+《行政复议法》第二十八条第一款第（三）项第3目规定，行政行为"违反法定程序"的，复议机关应当决定撤销。超期送达属于违反法定程序的典型情形，复议机关应依法撤销该处罚决定。`,
+    rebuttal: `申请人所称"决定书送达超期"一节，被申请人对此持有异议。被申请人在作出处罚决定后，依照《行政处罚法》第六十一条的规定，在法定期限内通过直接送达方式向申请人完成了处罚决定书的送达，并制作了送达回证，申请人在送达回证上签字确认。送达回证所载明的送达日期证明，被申请人的送达行为发生在处罚决定作出之日起七日内，程序符合法律规定。若申请人对送达时间存有异议，应当提供足以反驳送达回证记载内容的证据，仅凭口头陈述不足以推翻书面记录。`
+  },
+  {
+    id: 'no_id', cat: '程序违法', cls: 'cat-proc', label: '执法人员未出示证件',
+    desc: '执法过程中执法人员未依法出示有效执法证件',
+    suggestedLaws: ['行政处罚法第三条','行政处罚法第五十三条','行政复议法第二十八条'],
+    analysis: `依据行政执法的基本原则及《行政处罚法》第三条关于执法须遵守法定程序的规定，行政机关执法人员在实施行政执法行为时，须依法出示有效执法证件，这是行政执法合法性的基本程序要件。执法证件的出示，使当事人得以核实执法人员的执法资格、所属机关及执法权限，从而判断执法行为的合法性，并决定是否配合执法、如何行使相关权利。这一程序要求既是对当事人知情权的基本保障，也是防范假冒执法人员侵权行为的制度屏障。
+
+公安部颁布的《交通警察道路执勤执法工作规范》明确要求，交通警察在执勤执法过程中应当佩戴执法标志，着制式服装，依规出示执法证件。上述规范性文件的要求与《行政处罚法》关于依法执法的基本原则相一致，共同构成对执法程序的约束。
+
+本案中，被申请人的执法人员在实施执法行为过程中，未依法向申请人出示执法证件，导致申请人无从核实执法主体资格，亦无法确认执法权限边界。在执法主体资格无从证明的情况下，执法人员的执法行为缺乏基本的合法性前提，所取得的证据材料亦因此存在程序瑕疵。
+
+《行政处罚法》第三条规定"不遵守法定程序的，行政处罚无效"，《行政复议法》第二十八条规定"违反法定程序"的应予撤销，被申请人不出示证件的执法行为构成程序违法，应依法撤销处罚决定。`,
+    rebuttal: `申请人所称"执法人员未出示执法证件"一节，与客观事实不符。涉案交通警察系持有合法执法资格的在岗警察，执法时着制式警服、佩戴执法标志，执法编号清晰可见，依规向申请人表明了执法身份及执法依据。执法记录仪对全程执法过程进行了连续录像，录像清晰显示执法人员在执法初始阶段已依规出示证件、说明执法事由，申请人在现场表示知晓。申请人关于未出示证件的陈述与录像内容明显不符，缺乏事实依据，不能成立。`
+  },
+  {
+    id: 'expert_noserve', cat: '证据瑕疵', cls: 'cat-evid', label: '鉴定意见未依法告知',
+    desc: '司法鉴定意见书未在处罚决定前告知当事人',
+    suggestedLaws: ['行政处罚法第四十四条','行政处罚法第四十一条','行政处罚法第四十六条','司法鉴定程序通则第十五条'],
+    analysis: `《行政处罚法》第四十四条规定，行政机关在作出处罚决定之前，应当告知当事人拟作出处罚的"事实、理由、依据"。司法鉴定意见书作为本案行政处罚认定违法事实的核心证据，其记载的检测数值是被申请人得出当事人违法结论的直接依据，属于"拟作出处罚的事实和依据"的实质性内容。若行政机关未将该鉴定意见书告知申请人，则申请人对据以处罚的最关键证据一无所知，其陈述申辩权从根本上已被架空。
+
+陈述申辩权的价值在于使当事人有机会对行政机关所掌握的证据和事实提出实质性异议。申请人仅凭行政机关的口头描述或简略说明，无法对鉴定意见的取样程序、检测方法、数据准确性提出有针对性的质疑；只有在获知鉴定意见具体内容（包括鉴定机构名称、鉴定人资质、检测数值、样品编号等）之后，方可能发现并指出其中存在的程序瑕疵或结论错误。
+
+《司法鉴定程序通则》第十五条规定，鉴定材料须制作清单并经委托人确认后登记保管。鉴定材料管理的规范性直接影响鉴定意见的可靠性，而在鉴定意见未经告知的情况下，申请人对鉴定材料的来源和管理亦无从知晓，根本无法判断检测结论是否建立在合法、完整的材料基础之上。
+
+被申请人未在作出处罚决定前将司法鉴定意见书告知申请人，违反了《行政处罚法》第四十四条的明确规定，依据第四十一条，该处罚决定不能成立，依法应予撤销。`,
+    rebuttal: `申请人所称"鉴定意见未依法告知"一节，与事实不符。被申请人在向申请人送达《行政处罚事先告知书》时，已将司法鉴定意见书的主要内容——包括鉴定机构名称、鉴定结论及血液酒精含量检测数值——明确列入告知内容，并告知申请人就该鉴定意见有权提出陈述申辩。申请人在法定期限内未就鉴定意见提出任何异议，系对陈述申辩权的自愿放弃，不能在事后以"未告知"为由主张处罚程序违法。申请人关于鉴定意见未告知的主张与告知书的书面记载不符，不能成立。`
+  },
+  {
+    id: 'blood_illegal', cat: '证据瑕疵', cls: 'cat-evid', label: '抽血取样程序违规',
+    desc: '血液取样操作违反法定程序或操作规范',
+    suggestedLaws: ['行政处罚法第五十三条','行政处罚法第四十条','行政复议法第二十八条'],
+    analysis: `血液样本是本案司法鉴定意见的唯一来源，血液酒精含量的检测结论直接决定违法事实的成立与否及处罚幅度的轻重。因此，血液取样程序的合法性与规范性，是本案证据合法性审查的首要环节。
+
+依据公安部《道路交通事故处理程序规定》及《血液酒精含量检验作业规范》，血液取样须满足以下要件：第一，取样人员须为具有执业资质的医护人员，非医护人员不得实施静脉采血；第二，取样须在符合卫生规范的医疗机构进行，确保取样环境满足无菌要求；第三，取样须按照规定的操作规程进行，使用符合规格的采血管，并在采血管外壁标注编号、时间、采血人等信息；第四，取样完毕后须在当事人或见证人在场的情况下当场封装，防止后续污染或混淆；第五，封装完毕后须由执法人员和取样人员共同签字确认，形成完整的书面记录。
+
+上述程序要件中任何一项的缺失，均可能导致血液样品来源的合法性存疑，进而影响以该样品为基础形成的鉴定意见的证明效力。《行政处罚法》第五十三条明确规定"严禁以自行取得的证据代替依法取得的证据"，该规定的核心在于：证据的证明效力以取证程序的合法性为前提，程序违规取得的证据不得作为处罚依据。
+
+在本案中，取样程序存在疑问，被申请人未能提供完整的程序合规证明材料，导致以该血液样品为基础形成的鉴定意见的证明效力存疑。在核心证据来源合法性存疑的情况下，《行政处罚法》第四十条所要求的"证据充分"标准未能达到，不得据此作出行政处罚。`,
+    rebuttal: `申请人所称"抽血取样程序违规"一节，不能成立。本案血液样品由具有执业资质的医护人员在正规医疗机构依规采集，采集全程由两名以上执法人员在场见证并进行执法录像，采集后当场对样品进行封装标记，由申请人（或其委托的人员）与执法人员共同签字确认封装完好。被申请人持有完整的采样记录、封装记录、见证人签字材料及执法录像，证明取样程序完全符合《血液酒精含量检验作业规范》的要求。申请人关于程序违规的主张缺乏具体事实依据，不能成立。`
+  },
+  {
+    id: 'sample_chain', cat: '证据瑕疵', cls: 'cat-evid', label: '检材保管链条断裂',
+    desc: '检材从取样到送检的全链条保管记录不完整',
+    suggestedLaws: ['司法鉴定程序通则第十五条','行政处罚法第四十条','行政复议法第二十八条'],
+    analysis: `证据的证明效力不仅取决于其形成过程的合法性，同样依赖于其从形成到使用全链条的完整性与连续性。血液检材的"同一性"——即送交鉴定机构检验的样品与原始取样系同一物，中间未经替换、污染或降解——是血液酒精含量鉴定意见具有证明效力的基本前提。证明同一性所需的关键记录，包括：（一）封装记录：封装时间、封装人、样品编号、封装完好性证明；（二）交接记录：从执法人员到证据保管人员再到鉴定机构的每次移交，均须有双方签字的书面交接单；（三）保存条件记录：血液样品须在特定温度条件下保存，保存条件须有记录；（四）收样记录：鉴定机构收到检材时须核查封装状态并记录。
+
+《司法鉴定程序通则》第十五条明确规定，鉴定机构收到鉴定材料须制作《送检材料清单》，经委托人确认后对材料进行检查记录并登记保管。上述规定所要求的正是完整、连续的检材管理链条，其立法目的即在于防范检材在保管流转过程中被替换、污染或降解，确保鉴定结论建立在真实、可靠的材料基础之上。
+
+若检材保管链条中存在任何断点——如某次交接记录缺失、封装状态被破坏而无说明、保存条件记录残缺、鉴定机构收样记录与送检记录不吻合——则无法排除检材在中间环节被替换或污染的可能性，检材的同一性处于真伪不明的状态，以此为基础形成的鉴定意见依法不能作为认定违法事实的证据，被申请人据此作出的处罚决定缺乏充分的证据基础，依法应予撤销。`,
+    rebuttal: `申请人所称"检材保管链条断裂"一节，被申请人否认上述主张。本案检材自取样至送检全程有完整的保管链条记录，包括取样后即时封装记录（含样品编号、封装时间、封装人签名）、执法人员与证据保管人员之间的书面交接签收单、保管条件记录及鉴定机构收样时的封装状态核查记录，各环节记录连续完整，无任何断点。鉴定机构在收样时亦对封装状态进行了核查并出具接样证明，证明检材的同一性。被申请人存档的完整保管链条记录可随时提交复议机关核查，申请人关于链条断裂的主张无事实依据。`
+  },
+  {
+    id: 'expert_unqualified', cat: '证据瑕疵', cls: 'cat-evid', label: '鉴定机构不具备资质',
+    desc: '出具鉴定意见的机构或鉴定人缺乏法定司法鉴定资质',
+    suggestedLaws: ['司法鉴定程序通则第五条','行政处罚法第四十条','行政复议法第二十八条'],
+    analysis: `根据《全国人民代表大会常务委员会关于司法鉴定管理问题的决定》及《司法鉴定程序通则》第五条，从事司法鉴定业务的机构须经省级司法行政机关审核登记，取得司法鉴定许可证；鉴定人须具备相应专业领域的执业资格，并在其登记资质范围内执业。司法鉴定机构的合法资质是其出具鉴定意见具有法律效力的必要前提——未经合法登记的机构出具的报告，在法律性质上不构成司法鉴定意见，不具备《行政诉讼法》意义上的证明效力。
+
+司法鉴定资质制度的设立，旨在通过事前资质审核确保鉴定机构具备必要的专业能力和设备条件，防止不具备资质的机构出具不可靠的鉴定结论。若本案出具血液酒精含量鉴定意见的机构，（一）未在省级司法行政机关登记名册中登记；（二）虽有登记，但登记资质不涵盖血液酒精含量检测项目；（三）鉴定人不具备相应专业方向的执业资格证书；（四）鉴定资质已过有效期或被注销，则该鉴定意见欠缺法定效力，不应作为认定违法事实的依据。
+
+以不具备合法效力的检验报告作为认定违法事实的主要证据，违反了《行政处罚法》第四十条关于"证据必须充分"的要求，所认定的违法事实因失去证据支撑而处于不清晰状态。《行政复议法》第二十八条第（三）项第1目规定，主要事实不清楚、证据不足的，复议机关应当决定撤销，被申请人的处罚决定依法不能维持。`,
+    rebuttal: `申请人所称"鉴定机构不具备资质"一节，不能成立。本案血液酒精含量鉴定工作委托于依法经省级司法行政机关登记的司法鉴定机构，该机构的登记资质明确包含血液酒精含量检测项目，鉴定人持有相应专业方向的执业资格证书，资质证书在鉴定时均处于有效期内，不存在超出资质范围执业的情形。被申请人可提供鉴定机构司法鉴定许可证及鉴定人执业证书的复印件作为证据。申请人就鉴定资质提出的质疑，缺乏具体事实依据，不能成立。`
+  },
+  {
+    id: 'evidence_weak', cat: '实体违法', cls: 'cat-sub', label: '主要证据不足',
+    desc: '处罚决定所依据的证据不足以证明违法事实',
+    suggestedLaws: ['行政处罚法第四十条','行政复议法第二十八条'],
+    analysis: `《行政处罚法》第四十条确立了行政处罚的证据充分性原则：行政机关必须查明事实，违法事实不清、证据不足的，不得给予行政处罚。这一原则要求行政机关在作出处罚决定前，所依据的证据须达到"确实充分"的标准，能够相互印证，形成完整的证据链条，排除合理怀疑，方可认定违法事实成立。
+
+证据充分性的判断标准包括：（一）证据来源的合法性——证据须通过合法方式取得，程序违规取得的证据不具备完整的证明效力；（二）证据内容的真实性——证据须客观反映案件事实，不得存在伪造或变造；（三）证据之间的关联性与印证性——单一证据须能与其他证据相互印证，孤立的单一证据不足以支撑事实认定。
+
+本案中，被申请人据以认定申请人违法的主要证据存在程序瑕疵，核心证据（司法鉴定意见书）的取证程序、检材保管或鉴定机构资质等方面存在疑问，其证明效力本身处于不确定状态。在最关键证据的可靠性尚存合理质疑的情况下，被申请人未进行进一步核查即径行作出处罚，所认定的违法事实未达到法定的证明标准，处于"不清楚"状态。
+
+《行政复议法》第二十八条第一款第（三）项第1目明确规定，主要事实不清楚、证据不足的，复议机关应当决定撤销。被申请人在证据存疑的情况下作出处罚决定，违反了证据充分性原则，依法应予撤销。`,
+    rebuttal: `申请人所称"主要证据不足"一节，不能成立。被申请人作出本案处罚决定所依据的证据体系完整，包括：现场执法录像、道路执法记录单、执法人员出具的情况说明、血液取样记录及封装记录、司法鉴定意见书、告知记录及送达回证，上述证据形成完整的证据链条，相互印证，足以证明申请人存在违法行为。被申请人的证据收集程序符合《行政处罚法》第五十三条关于"全面、客观、公正调查"的要求，证明标准完全达到《行政处罚法》第四十条所要求的"事实清楚、证据充分"。申请人关于证据不足的主张仅为一面之词，不能推翻上述客观记录的证明效力。`
+  },
+  {
+    id: 'fact_wrong', cat: '实体违法', cls: 'cat-sub', label: '事实认定错误',
+    desc: '处罚决定对案件关键事实的认定与实际情况不符',
+    suggestedLaws: ['行政处罚法第四十条','行政复议法第二十八条'],
+    analysis: `行政处罚的合法性以事实认定准确为首要前提。《行政处罚法》第四十条要求行政机关必须"查明事实"，这一规定所要求的不仅是形式上的调查取证，更是对所取得的证据进行全面、客观的审查，确保据以处罚的事实认定与客观实际情况相符。
+
+在事实认定过程中，行政机关承担举证责任，须就违法事实的存在承担证明负担。当事人提出的有利于自身的事实陈述，行政机关须认真对待并进行核实，不得仅凭单方面证据径行认定不利于当事人的事实。若行政机关在事实认定过程中，存在对有利于当事人的证据未予充分考量、对相互矛盾的证据未予合理解释、或对关键事实的认定明显违背日常生活经验法则等情形，均可能导致事实认定结论出现偏差。
+
+本案中，被申请人对案件关键事实的认定存在偏差，所认定的违法事实与申请人实际情况不完全吻合。被申请人在事实认定过程中，存在对有利于申请人的情况未予充分审查的情形，导致最终事实认定结论有失客观。
+
+《行政复议法》第二十八条第一款第（三）项第1目明确规定，"主要事实不清楚"的，复议机关应当决定撤销。在关键事实存有疑问、事实认定存在偏差的情况下，依据"存疑有利于当事人"的行政法原则，不应对当事人作出不利的实质性处理，被申请人的处罚决定依法应予撤销。`,
+    rebuttal: `申请人所称"事实认定错误"一节，不能成立。被申请人在调查阶段依照《行政处罚法》第五十三条的规定，对本案事实进行了全面、客观、公正的调查，所取得的现场执法录像、执法记录单等客观证据清晰记录了违法行为的经过，不存在对有利于申请人的情况刻意忽视或对证据断章取义的情形。被申请人对案件事实的认定有充分的客观证据支撑，结论准确，申请人关于事实认定错误的主张系其个人主观立场，在客观证据已形成完整链条的情况下，不足以推翻被申请人的事实认定。`
+  },
+  {
+    id: 'law_wrong', cat: '实体违法', cls: 'cat-sub', label: '适用法律错误',
+    desc: '处罚决定援引的法律条款与本案情形不符',
+    suggestedLaws: ['行政处罚法第三条','行政复议法第二十八条'],
+    analysis: `《行政处罚法》第三条明确规定，行政处罚须依照法律、法规、规章规定实施，没有法定依据的行政处罚无效。法定依据的适用须准确匹配违法行为的法律性质——所援引的法条的构成要件须与违法行为的具体情节相吻合，不得任意援引、扩大解释或类推适用。
+
+适用法律错误在行政处罚实践中常见的情形包括：（一）援引已被修订或废止的法律条款；（二）援引的法条所规范的行为类型与本案违法行为不符；（三）对处于不同处罚层级的违法行为适用了错误层级的处罚条款（如将应适用较轻处罚的情形适用了重处罚条款）；（四）将应当适用上位法的情形错误地援引了下位规章，违反了法律适用的层级规则；（五）对自由裁量幅度的援引超出法定范围，实质上突破了法律授权边界。
+
+本案被申请人所援引的法律依据与本案违法事实情形之间存在不匹配之处，具体表现为：所援引的法条的适用条件与本案情节不相符合，导致法律适用出现偏差，影响了处罚的合法性。《行政复议法》第二十八条第一款第（三）项第2目明确规定，"适用依据错误"的，复议机关应当决定撤销，被申请人应当在撤销后依据正确的法律条款重新作出行政行为。`,
+    rebuttal: `申请人所称"适用法律错误"一节，不能成立。被申请人在作出处罚决定时，依据本案违法行为的具体情节、性质及危害程度，援引了《道路交通安全法》第九十一条及《行政处罚法》相关规定，所援引法条的构成要件与本案事实高度吻合，不存在法条选择错误、超越法律授权或扩大适用的情形。被申请人的法律适用准确，符合《行政处罚法》第三条关于依法定依据实施处罚的要求。申请人关于适用法律错误的主张仅为其个人法律解读，不能成立。`
+  },
+  {
+    id: 'proportion', cat: '比例原则', cls: 'cat-prop', label: '处罚幅度明显不当',
+    desc: '处罚种类或幅度与违法行为的危害程度不相当',
+    suggestedLaws: ['行政处罚法第五条','行政处罚法第三十二条','行政复议法第二十八条'],
+    analysis: `《行政处罚法》第五条确立了行政处罚的过罚相当原则（比例原则）：设定和实施行政处罚必须以事实为依据，与违法行为的事实、性质、情节以及社会危害程度相当。这一原则要求行政机关在法定幅度内行使裁量权时，须综合权衡案件的全部相关因素，选择与违法情节"相称"的处罚措施，既不可过轻，亦不可过重。
+
+比例原则的适用，要求行政机关在裁量时考量以下要素：其一，违法行为的严重程度——违法持续时间、危害后果的实际发生与否及其严重程度；其二，当事人的主观状态——是否存在主观故意，是否系初次违法，是否存在明显恶意；其三，当事人的事后态度——是否主动配合调查，是否具有悔改表现；其四，法定从轻减轻情节——《行政处罚法》第三十二条所列举的应当从轻减轻的具体情形；其五，同类案件的处罚惯例——遵循行政处罚的一致性，保障公民受到平等对待。
+
+本案中，被申请人在适用法定处罚幅度时，未对上述应考量因素进行充分审查与合理权衡，特别是对申请人可能存在的从轻减轻情节未予认定和适用，所作处罚明显重于本案情节应对应的处罚程度，存在处罚显失公正的情形。
+
+《行政复议法》第二十八条第一款第（三）项第6目明确规定，行政行为"明显不当"的，复议机关可以决定变更，在承认违法事实的前提下，将处罚幅度调整至与案件情节相适应的合理区间，实现比例原则的具体落实。`,
+    rebuttal: `申请人所称"处罚幅度明显不当"一节，不能成立。被申请人在确定本案处罚幅度时，依照《行政处罚法》第五条确立的过罚相当原则，综合考量了申请人违法行为的事实、性质、情节及社会危害程度，在法定处罚幅度内审慎行使裁量权。经审查，本案申请人不具备《行政处罚法》第三十二条规定的从轻减轻情节，处罚幅度的确定符合同类案件的一贯处理惯例，处罚结果适当，不存在处罚畸重或显失公正的情形。申请人认为处罚过重，系其主观感受，不符合比例原则的客观判断标准，不能成立。`
+  },
+  {
+    id: 'no_mitigate', cat: '比例原则', cls: 'cat-prop', label: '应减轻处罚而未适用',
+    desc: '当事人具有法定从轻减轻情节但处罚决定未予适用',
+    suggestedLaws: ['行政处罚法第三十二条','行政处罚法第五条','行政复议法第二十八条'],
+    analysis: `《行政处罚法》第三十二条明确规定了行政处罚的从轻减轻情形，并使用了"应当从轻或者减轻"的表述——这是羁束性规定，而非赋予行政机关选择是否适用的裁量空间。也就是说，一旦查明当事人具备该条款所列举的任一情形，行政机关即负有从轻或减轻处罚的法定义务，不得以任何理由拒绝适用。
+
+第三十二条所列举的从轻减轻情形包括：主动消除或减轻违法行为危害后果；受他人胁迫或诱骗实施违法行为；主动供述行政机关尚未掌握的违法行为；配合查处有立功表现；以及法律法规规章另有规定的其他情形。此外，该条款第二款进一步规定，初次违法且危害后果轻微并及时改正的，可以不予行政处罚。
+
+行政机关有义务在调查阶段主动核查当事人是否具有从轻减轻情节，而不得待当事人举证后方予考量。若行政机关未尽核查义务，对确实存在的从轻减轻情节视而不见，在处罚决定中既不认定相关情节，又不说明不予从轻减轻的理由，则所作处罚存在明显的裁量瑕疵，属于《行政复议法》第二十八条意义上的"明显不当"，复议机关有权依法予以变更。`,
+    rebuttal: `申请人所称"应减轻处罚而未适用"一节，不能成立。被申请人在作出处罚决定前，已依照《行政处罚法》第三十二条的规定，对申请人是否具备法定从轻减轻情节进行了认真核查。经查，申请人不具备该条款所列举的任何从轻减轻情节：（一）申请人未主动消除或减轻危害后果；（二）申请人未提供受胁迫或诱骗的证据；（三）申请人未主动供述额外违法行为；（四）申请人未提供配合查处或立功的证明。被申请人依法按法定幅度作出处罚，符合过罚相当原则，不存在应减轻而未减轻的情形。`
+  },
+  {
+    id: 'repeat_punish', cat: '实体违法', cls: 'cat-sub', label: '对同一行为重复处罚',
+    desc: '就同一违法事实已受过处罚，被申请人再次予以处罚',
+    suggestedLaws: ['行政处罚法第二十九条','行政复议法第二十八条'],
+    analysis: `《行政处罚法》第二十九条确立了"一事不再罚"原则：对当事人的同一个违法行为，不得给予两次以上罚款的行政处罚；同一违法行为违反多个法律规范应予罚款的，按照罚款数额高的规定处罚。这一原则是行政法领域的基本公正原则，其核心在于禁止行政机关就同一违法事实对当事人进行重复处罚，防范行政处罚权的滥用，保障当事人免于受到双重不利处分的权利。
+
+"一事不再罚"原则中的"同一违法行为"，是指在同一时间、同一地点发生的同一违法事实，而非同一条款或同类处罚。若当事人就同一违法事实已经被有关行政机关作出过处罚——无论是否为同一机关、无论两次处罚的法律依据是否完全相同——再次就该违法事实作出罚款处罚，均构成对"一事不再罚"原则的违背。
+
+本案中，申请人就本次处罚所依据的违法事实，此前已经受到过相应的行政处罚。被申请人就同一违法事实再次作出罚款处罚，属于《行政处罚法》第二十九条明确禁止的情形，该处罚决定因缺乏合法依据而无效，依据《行政复议法》第二十八条，复议机关应当决定撤销。`,
+    rebuttal: `申请人所称"对同一行为重复处罚"一节，不能成立。被申请人经核查确认，本次处罚系就申请人本次违法行为依法首次作出，此前从未就同一违法事实对申请人进行过任何行政处罚，不存在《行政处罚法》第二十九条所禁止的重复处罚情形。若申请人主张此前曾受过处罚，应当提供相应的行政处罚决定书等书面证据予以证明；仅凭口头陈述，不足以认定重复处罚事实的存在。`
+  },
+];
+
+// ════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════
 const S = {
   step: 1,
-  basic: { applicant:'', applicantId:'', applicantAddr:'', applicantPhone:'',
-           agent:'', agentPhone:'',
-           respondent:'', respondentAddr:'', respondentType:'行政机关',
-           actionType:'行政处罚', actionContent:'', legalBasis:'',
-           penaltyAmount:'', decisionNo:'', decisionReceived:'是', hearingApplied:'否', hearingResult:'' },
-  timeline: { violationDate:'', violationPlace:'', bloodDate:'', bloodPlace:'',
-              expertDate:'', expertOrg:'', decisionDate:'', deliveryDate:'',
-              knowDate:'' },
-  issues: [],
+  b: {
+    actionType:'行政处罚', actionContent:'', legalBasis:'', decisionNo:'',
+    penaltyAmount:'', decisionReceived:'是', hearingApplied:'否',
+    applicant:'', applicantId:'', applicantAddr:'', applicantPhone:'', applicantGender:'男',
+    agent:'', agentPhone:'', agentOrg:'',
+    respondent:'', respondentAddr:'', respondentType:'公安机关'
+  },
+  t: {
+    violationDate:'', violationTime:'', violationPlace:'',
+    bloodDate:'', bloodTime:'', bloodPlace:'',
+    expertDate:'', expertOrg:'', expertNo:'',
+    decisionDate:'', deliveryDate:'', knowDate:''
+  },
+  issues: [],       // selected issue ids
+  issueLaws: {},    // {issueId: [lawKey, ...]} user-selected laws per issue
   docA: '', docR: ''
 };
 
-const STEPS = [
-  {label:'基本\n信息'},{label:'当事人\n信息'},{label:'时间\n轴'},
-  {label:'争议\n点'},{label:'规则\n分析'},{label:'申请\n文书'},{label:'答复\n文书'}
+const STEPS_CFG = [
+  {l:'行为\n信息'},{l:'当事人\n信息'},{l:'时间\n轴'},
+  {l:'争议点\n与法条'},{l:'规则\n预览'},{l:'申请\n文书'},{l:'答复\n文书'}
 ];
 
-const ISSUES = [
-  // Procedural
-  { id:'no_statement', cat:'程序违法', label:'未告知陈述申辩权', desc:'作出处罚决定前未依法告知当事人陈述和申辩的权利' },
-  { id:'no_hearing_notice', cat:'程序违法', label:'未告知听证权利', desc:'对较重处罚未依法告知当事人申请听证的权利' },
-  { id:'late_delivery', cat:'程序违法', label:'决定书送达超期', desc:'行政处罚决定书未在合理期限内依法送达当事人' },
-  { id:'no_show_id', cat:'程序违法', label:'未出示执法证件', desc:'执法人员在执法过程中未依法出示执法证件' },
-  { id:'single_officer', cat:'程序违法', label:'执法人员不足两人', desc:'行政执法须由两名以上执法人员共同实施' },
-  // Evidence
-  { id:'expert_noserve', cat:'证据瑕疵', label:'司法鉴定意见未送达', desc:'司法鉴定意见书未依法告知当事人，影响申辩权' },
-  { id:'blood_illegal', cat:'证据瑕疵', label:'抽血取样程序违规', desc:'抽血取样操作不规范，未由具有资质的人员执行' },
-  { id:'sample_chain', cat:'证据瑕疵', label:'检材保管链条断裂', desc:'检材从取样到送检过程中保管记录不完整' },
-  { id:'expert_unqualified', cat:'证据瑕疵', label:'鉴定机构无资质', desc:'出具鉴定意见的机构或人员缺乏法定资质' },
-  { id:'evidence_weak', cat:'实体违法', label:'主要证据不足', desc:'处罚决定所依据的证据不足以证明违法事实' },
-  // Substantive
-  { id:'fact_wrong', cat:'实体违法', label:'事实认定错误', desc:'被申请人对违法事实的认定与客观事实不符' },
-  { id:'law_wrong', cat:'实体违法', label:'适用法律错误', desc:'被申请人适用的法律条款与本案情形不相符合' },
-  { id:'proportion', cat:'比例原则', label:'处罚幅度明显过重', desc:'处罚种类或幅度与违法行为的事实、性质、情节及社会危害程度不相当' },
-  { id:'no_mitigate', cat:'比例原则', label:'未考虑从轻减轻情节', desc:'当事人具有法定从轻减轻处罚情节，但未被采纳' },
-  { id:'repeat_punish', cat:'实体违法', label:'重复处罚', desc:'对同一违法行为已受过处罚，被申请人再次予以处罚' },
-];
-
-const RULES = {
-  no_statement: {
-    title:'未依法告知陈述申辩权',
-    analysis:'《中华人民共和国行政处罚法》第四十四条明确规定："行政机关在作出行政处罚决定之前，应当告知当事人拟作出的行政处罚内容及事实、理由、依据，并告知当事人依法享有的陈述、申辩、要求听证等权利。"第四十六条进一步规定，当事人进行陈述和申辩的，行政机关必须充分听取当事人的意见，对当事人提出的事实、理由和证据，应当进行复核；当事人提出的事实、理由或者证据成立的，行政机关应当采纳。第四十一条明确规定："行政机关及其执法人员在作出行政处罚决定之前，不依照本法第四十四条的规定向当事人告知给予行政处罚的事实、理由和依据，或者拒绝听取当事人的陈述、申辩，行政处罚决定不能成立。"本案中，被申请人未尽告知义务，剥夺了申请人依法行使陈述申辩权的机会，直接影响处罚决定的合法性。',
-    law:'《行政处罚法》第四十一条、第四十四条、第四十六条'
-  },
-  no_hearing_notice: {
-    title:'未依法告知听证权利',
-    analysis:'《中华人民共和国行政处罚法》第六十三条规定："行政机关拟作出下列行政处罚决定，应当告知当事人有要求举行听证的权利……（三）降低资质等级、吊销许可证件；（五）法律、法规、规章规定的其他较重的行政处罚。"本案处罚种类为吊销证照或较重处罚，依法须告知听证权利。被申请人未告知申请人享有听证权利，剥夺了申请人通过听证程序就案件事实进行申辩的权利，属程序严重违法，依据第四十一条之规定，该行政处罚决定不能成立。',
-    law:'《行政处罚法》第四十一条、第六十三条'
-  },
-  late_delivery: {
-    title:'决定书送达程序存在瑕疵',
-    analysis:'《中华人民共和国行政处罚法》第六十一条规定："行政处罚决定书应当在宣告后当场交付当事人；当事人不在场的，行政机关应当在七日内依照《中华人民共和国民事诉讼法》的有关规定，将行政处罚决定书送达当事人。"《民事诉讼法》及相关司法解释对送达程序亦有严格规定。被申请人未能在法定期限内依法完成送达，导致申请人无法及时知悉处罚内容、行使复议申请权及其他法律救济权利，送达程序存在明显瑕疵，影响处罚决定的效力。',
-    law:'《行政处罚法》第六十一条；《民事诉讼法》送达相关规定'
-  },
-  no_show_id: {
-    title:'执法人员未依法出示执法证件',
-    analysis:'《中华人民共和国行政处罚法》第五十四条规定："执法人员当场作出行政处罚决定的，应当向当事人出示执法证件，填写预定格式、编有号码的行政处罚决定书。"《道路交通安全法》及其实施条例亦规定，交警执法时应依法出示执法证件。执法证件的出示是行政执法合法性的基本要素，也是保障当事人知情权的基本程序。被申请人执法人员未依法出示证件，执法程序不符合法律规定。',
-    law:'《行政处罚法》第五十四条；《道路交通安全法实施条例》相关规定'
-  },
-  single_officer: {
-    title:'执法人员人数不符合法定要求',
-    analysis:'《中华人民共和国行政处罚法》第五十三条规定："除依法应当由当事人陈述、申辩或者听证的情形外，行政机关应当由两名以上行政执法人员实施行政处罚。"《交通警察道路执勤执法工作规范》亦明确要求两人以上执勤。执法人员数量不足，不符合法定执法程序要求，所作执法行为的合法性存疑，由此形成的证据材料亦可能因程序违规而影响其证明效力。',
-    law:'《行政处罚法》第五十三条；《交通警察道路执勤执法工作规范》相关规定'
-  },
-  expert_noserve: {
-    title:'司法鉴定意见未依法告知当事人',
-    analysis:'《司法鉴定程序通则》第三十五条规定，委托人对鉴定意见有异议的，可以要求鉴定人作出解释、说明或者补充鉴定。《行政处罚法》第四十四条明确规定，行政机关作出行政处罚决定之前，应当告知当事人拟作出的行政处罚内容及事实、理由、依据，主要证据材料是据以处罚的核心依据，未予告知即剥夺了当事人对关键证据提出质疑与申辩的权利。司法鉴定意见作为本案主要证据，被申请人未在作出处罚决定前将其告知申请人，使申请人丧失了对该鉴定意见提出异议、申请重新鉴定的程序权利，导致处罚程序存在重大瑕疵。',
-    law:'《行政处罚法》第四十四条；《司法鉴定程序通则》第三十五条'
-  },
-  blood_illegal: {
-    title:'抽血取样程序存在违规情形',
-    analysis:'依据公安部《道路交通事故处理程序规定》及《血液酒精含量检验作业规范》，血液取样须由具有资质的医护人员在规范条件下操作，取样过程须有见证人，并应当场封装保存。若抽血操作人员不具备相应资质、取样地点不符合卫生规范、封存程序不完整，或存在强制取样而未依法履行审批手续等情形，均导致该血液样品来源的合法性存疑。以程序违规所取检材为据作出的鉴定意见，其证明力应受到严格审查，不能直接作为定案依据。',
-    law:'《道路交通事故处理程序规定》；《血液酒精含量检验作业规范》相关规定'
-  },
-  sample_chain: {
-    title:'检材保管链条存在断裂',
-    analysis:'司法鉴定证据的合法性不仅要求取样程序合规，还要求检材自取样至送检全过程保管记录完整、连续。《司法鉴定程序通则》第十五条规定，鉴定材料的收取应当有严格记录，并由委托人和鉴定人共同核对、签封。若检材的保管记录存在缺失、交接手续不全、封装状态受损或无法排除污染可能等情形，则无法证明送检检材与原始检材的同一性，进而导致以该检材为基础作出的鉴定意见缺乏事实依据，不应作为行政处罚的证据使用。',
-    law:'《司法鉴定程序通则》第十五条、第十六条'
-  },
-  expert_unqualified: {
-    title:'鉴定机构或鉴定人不具备法定资质',
-    analysis:'根据《全国人民代表大会常务委员会关于司法鉴定管理问题的决定》及《司法鉴定程序通则》的规定，从事司法鉴定业务的机构须经省级司法行政机关审核登记，鉴定人须具备相应的执业资格。鉴定机构的资质合法性是鉴定意见证明效力的前提条件。若出具鉴定意见的机构未在法定机构名册中登记，或鉴定人不具备法定执业资格，则其出具的鉴定意见在法律上不具有司法鉴定意见的效力，不能作为行政处罚的合法证据。',
-    law:'《全国人大常委会关于司法鉴定管理问题的决定》；《司法鉴定程序通则》第五条'
-  },
-  evidence_weak: {
-    title:'主要证据不足以证明违法事实',
-    analysis:'《中华人民共和国行政处罚法》第四十条规定："公民、法人或者其他组织违反行政管理秩序的行为，依法应当给予行政处罚的，行政机关必须查明事实；违法事实不清、证据不足的，不得给予行政处罚。"《最高人民法院关于行政诉讼证据若干问题的规定》亦确立了行政机关的举证责任原则。被申请人所依据的证据存在取证程序瑕疵、证明力存疑等问题，现有证据尚不足以达到认定申请人存在违法行为所要求的证明标准，处罚决定缺乏充分的事实依据。',
-    law:'《行政处罚法》第四十条；《行政诉讼证据规定》相关条款'
-  },
-  fact_wrong: {
-    title:'行政处罚决定认定事实有误',
-    analysis:'行政处罚的合法性以事实认定准确为基础。被申请人在作出处罚决定时，对案件基本事实的认定存在偏差，所认定的违法事实与实际情况不符。《行政处罚法》第四十条明确要求行政机关"查明事实"后方可处罚，事实不清则处罚不能成立。申请人依法有权对错误的事实认定提出异议，并要求复议机关对相关事实进行重新审查与认定，在事实认定尚存疑问的情况下，应依据"存疑有利于当事人"的原则，撤销或变更原处罚决定。',
-    law:'《行政处罚法》第四十条；《行政复议法》第二十八条'
-  },
-  law_wrong: {
-    title:'适用法律条款有误',
-    analysis:'《中华人民共和国行政处罚法》第三条规定："公民、法人或者其他组织违反行政管理秩序的行为，应当给予行政处罚的，依照本法由法律、法规、规章规定，并由行政机关依照本法规定的程序实施。没有法定依据或者不遵守法定程序的，行政处罚无效。"被申请人援引的法律条款与本案事实情形不相匹配，属于适用法律错误。依据《行政复议法》第二十八条，复议机关对适用法律错误的行政行为，应当予以撤销或变更。',
-    law:'《行政处罚法》第三条；《行政复议法》第二十八条第一款第（三）项'
-  },
-  proportion: {
-    title:'处罚幅度明显不当，违反比例原则',
-    analysis:'《中华人民共和国行政处罚法》第五条规定："行政处罚遵循公正、公开的原则。设定和实施行政处罚必须以事实为依据，与违法行为的事实、性质、情节以及社会危害程度相当。"第三十二条规定了从轻或者减轻处罚的具体情形。本案中，被申请人在适用处罚时未充分考量违法行为的情节轻重、当事人的配合程度及主观恶意等因素，所作处罚明显重于违法行为应受处罚的程度，违反了行政法的比例原则，属于处罚显失公正的情形，依法应予变更。',
-    law:'《行政处罚法》第五条、第三十二条；《行政复议法》第二十八条第一款第（四）项'
-  },
-  no_mitigate: {
-    title:'应当从轻减轻处罚而未适用',
-    analysis:'《中华人民共和国行政处罚法》第三十二条规定："当事人有下列情形之一，应当从轻或者减轻行政处罚：（一）主动消除或者减轻违法行为危害后果的；（二）受他人胁迫或者诱骗实施违法行为的；（三）主动供述行政机关尚未掌握的违法行为的；（四）配合行政机关查处违法行为有立功表现的；（五）法律、法规、规章规定其他应当从轻或者减轻行政处罚的。"申请人存在上述法定从轻减轻情节，被申请人在作出处罚决定时未依法予以考量和适用，导致处罚结果畸重，违反了过罚相当原则。',
-    law:'《行政处罚法》第三十二条；《行政处罚法》第五条'
-  },
-  repeat_punish: {
-    title:'同一违法行为不得重复处罚',
-    analysis:'《中华人民共和国行政处罚法》第二十九条规定："对当事人的同一个违法行为，不得给予两次以上罚款的行政处罚。同一个违法行为违反多个法律规范应当给予罚款处罚的，按照罚款数额高的规定处罚。"该规定体现了"一事不再罚"的基本行政法原则。若申请人就同一违法事实已经受过相应处罚，被申请人再次就同一事实作出处罚，属于重复处罚，违反法律明确规定，该处罚决定依法应当撤销。',
-    law:'《行政处罚法》第二十九条'
-  }
-};
-
-// ============ PAGE NAVIGATION ============
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  ['home','practice','help'].forEach((n,i) => {
-    if (n === name) document.querySelectorAll('.nav-link')[i].classList.add('active');
-  });
-  if (name === 'practice') renderStep();
-  window.scrollTo(0, 0);
+// ════════════════════════════════════════
+// NAV
+// ════════════════════════════════════════
+function showPg(n) {
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nt').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-'+n).classList.add('on');
+  ['home','practice','laws','help'].forEach((x,i)=>{ if(x===n) document.querySelectorAll('.nt')[i].classList.add('on'); });
+  if(n==='practice') renderStep();
+  if(n==='laws') renderLawsPage();
+  window.scrollTo(0,0);
 }
+function tFaq(el){const a=el.nextElementSibling;a.classList.toggle('open');el.querySelector('span').textContent=a.classList.contains('open')?'－':'＋';}
 
-function toggleFaq(el) {
-  const a = el.nextElementSibling;
-  a.classList.toggle('open');
-  el.querySelector('span').textContent = a.classList.contains('open') ? '－' : '＋';
-}
-
-// ============ PROGRESS ============
-function renderProgress() {
-  const bar = document.getElementById('progressBar');
-  bar.innerHTML = '';
-  STEPS.forEach((s, i) => {
-    if (i > 0) {
-      const ln = document.createElement('div');
-      ln.className = 'step-line' + (S.step > i ? ' done' : '');
-      bar.appendChild(ln);
-    }
-    const w = document.createElement('div');
-    w.className = 'step-dot';
-    const cls = S.step === i+1 ? 'active' : S.step > i+1 ? 'done' : '';
-    w.innerHTML = `<div class="dot ${cls}">${S.step > i+1 ? '✓' : i+1}</div><div class="dot-label">${s.label}</div>`;
-    bar.appendChild(w);
-  });
-}
-
-// ============ FIELD HELPERS ============
-function f(label, id, type, val, extra, req) {
-  const r = req ? '<span class="req">*</span>' : '';
-  let inp = '';
-  if (type === 'select') {
-    inp = `<select id="${id}" onchange="upd('${id}',this.value)">${extra.map(o=>`<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join('')}</select>`;
-  } else if (type === 'date') {
-    inp = `<input type="date" id="${id}" value="${val}" onchange="upd('${id}',this.value)">`;
-  } else if (type === 'textarea') {
-    inp = `<textarea id="${id}" placeholder="${extra||''}" onchange="upd('${id}',this.value)">${val}</textarea>`;
-  } else {
-    inp = `<input type="text" id="${id}" value="${val}" placeholder="${extra||''}" onchange="upd('${id}',this.value)">`;
-  }
-  return `<div class="field-group"><label class="field-label">${label}${r}</label>${inp}</div>`;
-}
-
-function upd(key, val) {
-  if (key in S.basic) S.basic[key] = val;
-  if (key in S.timeline) S.timeline[key] = val;
-}
-
-// ============ STEPS ============
-function renderStep() {
-  renderProgress();
-  const c = document.getElementById('stepContent');
-  [renderS1,renderS2,renderS3,renderS4,renderS5,renderS6,renderS7][S.step-1](c);
-}
-
-function renderS1(c) {
-  c.innerHTML = `
-  <div class="card">
-    <div class="card-title"><span class="step-badge">第一步</span> 案件基本信息</div>
-    <div class="info-box">请填写模拟案件的基本信息。所有内容均为虚构，仅供练习使用。</div>
-    <div class="section-divider">行政行为信息</div>
-    ${f('行政行为类型','actionType','select',S.basic.actionType,['行政处罚','行政强制','不履行职责','信息公开拒绝','行政许可拒绝','行政征收'],true)}
-    ${f('行政行为具体内容','actionContent','text',S.basic.actionContent,'例：以饮酒驾车为由吊销机动车驾驶证',true)}
-    ${f('被申请人援引的法律依据','legalBasis','text',S.basic.legalBasis,'例：《道路交通安全法》第九十一条第一款')}
-    <div class="grid-2">
-      ${f('处罚决定书文号','decisionNo','text',S.basic.decisionNo,'例：某公交决字〔2024〕第××号')}
-      ${f('罚款金额（如适用）','penaltyAmount','text',S.basic.penaltyAmount,'例：2000元')}
-    </div>
-    <div class="grid-2">
-      ${f('是否已收到决定书','decisionReceived','select',S.basic.decisionReceived,['是','否'])}
-      ${f('是否曾申请听证','hearingApplied','select',S.basic.hearingApplied,['否','是，已举行','是，被拒绝'])}
-    </div>
-  </div>
-  <div class="btn-row"><span></span>
-    <button class="btn btn-primary" onclick="goNext()">下一步：当事人信息 →</button>
-  </div>`;
-}
-
-function renderS2(c) {
-  c.innerHTML = `
-  <div class="card">
-    <div class="card-title"><span class="step-badge">第二步</span> 当事人详细信息</div>
-    <div class="section-divider">申请人信息</div>
-    <div class="grid-2">
-      ${f('申请人姓名（假名）','applicant','text',S.basic.applicant,'例：张某',true)}
-      ${f('身份证号（模拟）','applicantId','text',S.basic.applicantId,'例：×××××××××××××××××')}
-    </div>
-    ${f('申请人住所','applicantAddr','text',S.basic.applicantAddr,'例：某市某区某路×号')}
-    ${f('联系电话','applicantPhone','text',S.basic.applicantPhone,'例：138××××××××')}
-    <div class="section-divider">代理人信息（如有）</div>
-    <div class="grid-2">
-      ${f('代理人姓名','agent','text',S.basic.agent,'如无代理人可留空')}
-      ${f('代理人联系方式','agentPhone','text',S.basic.agentPhone,'')}
-    </div>
-    <div class="section-divider">被申请人信息</div>
-    ${f('被申请人全称','respondent','text',S.basic.respondent,'例：某市公安局交通警察支队',true)}
-    ${f('被申请人地址','respondentAddr','text',S.basic.respondentAddr,'例：某市某区某路×号')}
-    ${f('被申请人机关性质','respondentType','select',S.basic.respondentType,['行政机关','法律法规授权组织','受委托组织'])}
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goBack()">← 返回</button>
-    <button class="btn btn-primary" onclick="goNext()">下一步：填写时间轴 →</button>
-  </div>`;
-}
-
-function renderS3(c) {
-  c.innerHTML = `
-  <div class="card">
-    <div class="card-title"><span class="step-badge">第三步</span> 案件时间轴</div>
-    <div class="info-box">时间轴是发现程序违法的核心工具。请尽量填写所有已知时间节点，系统将自动生成可视化时间轴。</div>
-    <div class="section-divider">违法行为阶段</div>
-    <div class="grid-2">
-      ${f('违法行为发生时间','violationDate','date',S.timeline.violationDate)}
-      ${f('违法行为发生地点','violationPlace','text',S.timeline.violationPlace,'例：某市某路某路口')}
-    </div>
-    <div class="section-divider">取证阶段</div>
-    <div class="grid-2">
-      ${f('抽血取样时间','bloodDate','date',S.timeline.bloodDate)}
-      ${f('抽血取样地点','bloodPlace','text',S.timeline.bloodPlace,'例：某医院急诊室')}
-    </div>
-    <div class="grid-2">
-      ${f('司法鉴定意见出具时间','expertDate','date',S.timeline.expertDate)}
-      ${f('鉴定机构名称','expertOrg','text',S.timeline.expertOrg,'例：某市司法鉴定中心')}
-    </div>
-    <div class="section-divider">处罚决定阶段</div>
-    <div class="grid-2">
-      ${f('处罚决定作出时间','decisionDate','date',S.timeline.decisionDate)}
-      ${f('决定书送达时间','deliveryDate','date',S.timeline.deliveryDate)}
-    </div>
-    ${f('申请人知悉处罚决定时间','knowDate','date',S.timeline.knowDate)}
-  </div>
-  <div id="tlPreview"></div>
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goBack()">← 返回</button>
-    <button class="btn btn-primary" onclick="goNext()">下一步：选择争议点 →</button>
-  </div>`;
-  renderTL();
-  document.querySelectorAll('input[type=date]').forEach(el => {
-    el.addEventListener('input', () => { upd(el.id, el.value); renderTL(); });
-  });
-}
-
-function renderTL() {
-  const T = S.timeline;
-  const evs = [
-    [T.violationDate, `发生${S.basic.actionType}相关违法行为${T.violationPlace ? '（' + T.violationPlace + '）' : ''}`],
-    [T.bloodDate, `执法人员对当事人进行抽血取样${T.bloodPlace ? '（' + T.bloodPlace + '）' : ''}`],
-    [T.expertDate, `${T.expertOrg || '鉴定机构'}出具司法鉴定意见书`],
-    [T.decisionDate, `被申请人作出${S.basic.actionContent || S.basic.actionType}行政处罚决定`],
-    [T.deliveryDate, '将处罚决定书送达申请人'],
-    [T.knowDate, '申请人确认知悉处罚决定内容'],
-  ].filter(e => e[0]);
-  const el = document.getElementById('tlPreview');
-  if (!evs.length) { el.innerHTML = ''; return; }
-  evs.sort((a,b) => a[0].localeCompare(b[0]));
-
-  // Check for potential issues
-  let warnings = [];
-  if (T.decisionDate && T.deliveryDate) {
-    const d1 = new Date(T.decisionDate), d2 = new Date(T.deliveryDate);
-    const diff = Math.round((d2 - d1) / 86400000);
-    if (diff > 7) warnings.push(`⚠ 决定书送达距作出已达 ${diff} 天，超出7日法定期限，可能存在程序瑕疵。`);
-  }
-  if (T.violationDate && T.expertDate) {
-    const d1 = new Date(T.violationDate), d2 = new Date(T.expertDate);
-    const diff = Math.round((d2 - d1) / 86400000);
-    if (diff > 30) warnings.push(`⚠ 鉴定意见出具距违法行为发生已达 ${diff} 天，间隔较长，可考虑质疑检材同一性。`);
-  }
-
-  el.innerHTML = `<div class="card">
-    <div class="card-title" style="font-size:15px;">时间轴预览</div>
-    ${warnings.map(w => `<div class="warn-box">${w}</div>`).join('')}
-    ${evs.map((e,i) => `
-    <div class="timeline-item">
-      <div class="t-date">${e[0]}</div>
-      <div class="t-col"><div class="t-dot"></div>${i<evs.length-1?'<div class="t-line"></div>':''}</div>
-      <div class="t-label">${e[1]}</div>
-    </div>`).join('')}
-  </div>`;
-}
-
-function renderS4(c) {
-  const cats = [...new Set(ISSUES.map(i => i.cat))];
-  c.innerHTML = `
-  <div class="card">
-    <div class="card-title"><span class="step-badge">第四步</span> 争议点选择</div>
-    <div class="info-box">请勾选本案可能存在的问题，可多选。每项争议点将在文书中展开详细论述并引用具体法条。</div>
-    ${cats.map(cat => `
-      <div class="section-divider">${cat}</div>
-      <div class="checkbox-group-row">
-        ${ISSUES.filter(i => i.cat === cat).map(issue => `
-          <label class="cb-item ${S.issues.includes(issue.id)?'checked':''}" onclick="toggleIssue('${issue.id}',this)">
-            <input type="checkbox" ${S.issues.includes(issue.id)?'checked':''}>
-            <div><div class="cb-text">${issue.label}</div><small>${issue.desc}</small></div>
-          </label>`).join('')}
-      </div>`).join('')}
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goBack()">← 返回</button>
-    <button class="btn btn-primary" onclick="goNext()">下一步：查看规则分析 →</button>
-  </div>`;
-}
-
-function toggleIssue(id, el) {
-  const idx = S.issues.indexOf(id);
-  if (idx >= 0) { S.issues.splice(idx,1); el.classList.remove('checked'); el.querySelector('input').checked = false; }
-  else { S.issues.push(id); el.classList.add('checked'); el.querySelector('input').checked = true; }
-}
-
-function renderS5(c) {
-  const matched = S.issues.map(id => RULES[id]).filter(Boolean);
-  c.innerHTML = `
-  <div class="card">
-    <div class="card-title"><span class="step-badge">第五步</span> 法律规则分析</div>
-    ${matched.length === 0
-      ? '<div class="empty-state"><div class="ei">📋</div><div>未选择任何争议点，请返回上一步勾选</div></div>'
-      : matched.map((r,i) => `
-        <div class="rule-match">
-          <div class="rule-title">${i+1}. ${r.title}</div>
-          <div class="rule-body">${r.analysis}</div>
-          <div class="rule-law">📖 法律依据：${r.law}</div>
+// ════════════════════════════════════════
+// LAWS PAGE
+// ════════════════════════════════════════
+function renderLawsPage() {
+  const el = document.getElementById('lawsPageContent');
+  el.innerHTML = LAW_DB.acts.map(act => `
+    <div class="law-act-section">
+      <div class="law-act-title">${act.name}</div>
+      ${act.articles.map(art => `
+        <div class="law-art">
+          <div class="law-art-head" onclick="togLawArt(this)">
+            <span class="law-art-no">${art.no} &nbsp;${art.title}</span>
+            <span class="law-art-peek">${art.text.substring(0,40)}…</span>
+          </div>
+          <div class="law-art-body">${art.text.replace(/\n/g,'<br>')}</div>
         </div>`).join('')}
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goBack()">← 返回</button>
-    <button class="btn btn-primary" onclick="goNext()">下一步：生成申请书 →</button>
-  </div>`;
+    </div>`).join('');
+}
+function togLawArt(el){const b=el.nextElementSibling;b.classList.toggle('open');}
+
+// ════════════════════════════════════════
+// PROGRESS BAR
+// ════════════════════════════════════════
+function renderPbar(){
+  const b=document.getElementById('pbar'); b.innerHTML='';
+  STEPS_CFG.forEach((s,i)=>{
+    if(i>0){const ln=document.createElement('div');ln.className='sline'+(S.step>i?' dn':'');b.appendChild(ln);}
+    const w=document.createElement('div'); w.className='sdot';
+    const cls=S.step===i+1?'on':S.step>i+1?'dn':'';
+    w.innerHTML=`<div class="dot ${cls}">${S.step>i+1?'✓':i+1}</div><div class="dlbl">${s.l}</div>`;
+    b.appendChild(w);
+  });
 }
 
-function renderS6(c) {
-  c.innerHTML = `
+// ════════════════════════════════════════
+// FIELD HELPER
+// ════════════════════════════════════════
+function f(lbl,id,type,val,extra,req,hint){
+  const r=req?'<span class="req">*</span>':'';
+  const h=hint?`<span class="hint">${hint}</span>`:'';
+  let inp='';
+  if(type==='select') inp=`<select id="${id}" onchange="up('${id}',this.value)">${extra.map(o=>`<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join('')}</select>`;
+  else if(type==='date') inp=`<input type="date" id="${id}" value="${val}" onchange="up('${id}',this.value)">`;
+  else inp=`<input type="text" id="${id}" value="${val}" placeholder="${extra||''}" onchange="up('${id}',this.value)">`;
+  return `<div class="fg"><label class="fl">${lbl}${r}${h}</label>${inp}</div>`;
+}
+function up(k,v){ if(k in S.b)S.b[k]=v; if(k in S.t)S.t[k]=v; }
+
+// ════════════════════════════════════════
+// STEP RENDERING
+// ════════════════════════════════════════
+function renderStep(){renderPbar();const c=document.getElementById('sc');[rS1,rS2,rS3,rS4,rS5,rS6,rS7][S.step-1](c);}
+
+function rS1(c){c.innerHTML=`
   <div class="card">
-    <div class="card-title"><span class="step-badge">第六步</span> 行政复议申请书</div>
-    <div class="info-box">点击下方按钮，系统将根据填写的信息自动生成完整文书（无需联网）。</div>
-    <div id="docAContent">
-      ${S.docA
-        ? `<div class="doc-wrap"><div class="doc-toolbar"><span class="doc-label">行政复议申请书</span><button class="copy-btn" onclick="copyDoc('A')">📋 复制全文</button></div><div class="doc-output">${escH(S.docA)}</div></div>`
-        : '<div class="empty-state"><div class="ei">📄</div><div>点击下方按钮生成申请书</div></div>'}
-    </div>
+    <div class="ctitle"><span class="sbadge">第一步</span>行政行为基本信息</div>
+    <div class="ibox">📌 填写案件基本信息，带 <span style="color:#b02020">*</span> 为必填。这些信息将构成文书的基础框架。</div>
+    <div class="sdiv">处罚决定信息</div>
+    ${f('行政行为类型','actionType','select',S.b.actionType,['行政处罚','行政强制','不履行职责','信息公开拒绝','行政许可拒绝'],true)}
+    ${f('行政行为具体内容','actionContent','text',S.b.actionContent,'例：以饮酒驾车为由吊销机动车驾驶证',true)}
+    ${f('被申请人援引的法律依据','legalBasis','text',S.b.legalBasis,'例：《道路交通安全法》第九十一条第二款')}
+    <div class="g2">${f('处罚决定书文号','decisionNo','text',S.b.decisionNo,'例：某公交决字〔2024〕第018号')}${f('罚款金额','penaltyAmount','text',S.b.penaltyAmount,'例：2000元（如适用）')}</div>
+    <div class="g2">${f('是否收到决定书','decisionReceived','select',S.b.decisionReceived,['是','否'])}${f('是否申请过听证','hearingApplied','select',S.b.hearingApplied,['否','是，已举行','是，被拒绝'])}</div>
   </div>
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goBack()">← 返回</button>
-    <div class="btn-row-right">
-      <button class="btn btn-green" onclick="genDoc('A')">▶ 生成申请书</button>
-      <button class="btn btn-primary" id="btn6next" onclick="goNext()" ${!S.docA?'disabled':''}>下一步：生成答复书 →</button>
-    </div>
-  </div>`;
-}
+  <div class="brow"><span></span><button class="btn bp" onclick="goN()">下一步：当事人信息 →</button></div>`;}
 
-function renderS7(c) {
-  c.innerHTML = `
+function rS2(c){c.innerHTML=`
   <div class="card">
-    <div class="card-title"><span class="step-badge">第七步</span> 被申请人答复书</div>
-    <div class="info-box">从被申请机关视角生成答复书，逐一反驳争议点，用于对比练习两种立场。</div>
-    <div id="docRContent">
-      ${S.docR
-        ? `<div class="doc-wrap"><div class="doc-toolbar"><span class="doc-label">行政复议答复书</span><button class="copy-btn" onclick="copyDoc('R')">📋 复制全文</button></div><div class="doc-output">${escH(S.docR)}</div></div>`
-        : '<div class="empty-state"><div class="ei">📄</div><div>点击下方按钮生成答复书</div></div>'}
-    </div>
+    <div class="ctitle"><span class="sbadge">第二步</span>当事人详细信息</div>
+    <div class="sdiv">申请人信息</div>
+    <div class="g2">${f('姓名（假名）','applicant','text',S.b.applicant,'例：张某',true)}${f('性别','applicantGender','select',S.b.applicantGender,['男','女','未填写'])}</div>
+    <div class="g2">${f('身份证号（模拟）','applicantId','text',S.b.applicantId,'例：×××××××××××××××××')}${f('联系电话（模拟）','applicantPhone','text',S.b.applicantPhone,'例：138××××××××')}</div>
+    ${f('住所','applicantAddr','text',S.b.applicantAddr,'例：某市某区某路××号××室')}
+    <div class="sdiv">委托代理人（如无请留空）</div>
+    <div class="g3">${f('代理人姓名','agent','text',S.b.agent,'如无可留空')}${f('代理人联系电话','agentPhone','text',S.b.agentPhone,'')}${f('代理人所在机构','agentOrg','text',S.b.agentOrg,'例：某律师事务所')}</div>
+    <div class="sdiv">被申请人信息</div>
+    ${f('被申请人全称','respondent','text',S.b.respondent,'例：某市公安局交通警察支队',true)}
+    ${f('被申请人机关住所','respondentAddr','text',S.b.respondentAddr,'例：某市某区某路××号')}
+    ${f('被申请人机关性质','respondentType','select',S.b.respondentType,['公安机关','工商行政管理机关','税务机关','其他行政机关','法律法规授权组织'])}
   </div>
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goBack()">← 返回</button>
-    <div class="btn-row-right">
-      <button class="btn btn-green" onclick="genDoc('R')">▶ 生成答复书</button>
-      <button class="btn btn-outline" onclick="restart()">🔄 重新开始</button>
-    </div>
-  </div>`;
+  <div class="brow"><button class="btn bo" onclick="goB()">← 返回</button><button class="btn bp" onclick="goN()">下一步：时间轴 →</button></div>`;}
+
+function rS3(c){c.innerHTML=`
+  <div class="card">
+    <div class="ctitle"><span class="sbadge">第三步</span>案件时间轴</div>
+    <div class="ibox">📅 尽量填写所有时间节点，系统将自动检测程序超期问题，并在文书中引用具体天数。</div>
+    <div class="sdiv">违法行为阶段</div>
+    <div class="g3">${f('违法行为发生日期','violationDate','date',S.t.violationDate)}${f('发生时间','violationTime','text',S.t.violationTime,'例：22:30')}${f('发生地点','violationPlace','text',S.t.violationPlace,'例：某市某路某路口')}</div>
+    <div class="sdiv">取证阶段</div>
+    <div class="g3">${f('抽血取样日期','bloodDate','date',S.t.bloodDate)}${f('取样时间','bloodTime','text',S.t.bloodTime,'例：23:15')}${f('取样地点','bloodPlace','text',S.t.bloodPlace,'例：某医院急诊室')}</div>
+    <div class="g3">${f('鉴定意见出具日期','expertDate','date',S.t.expertDate)}${f('鉴定机构名称','expertOrg','text',S.t.expertOrg,'例：某市司法鉴定中心')}${f('鉴定报告编号','expertNo','text',S.t.expertNo,'例：某司鉴〔2024〕第××号')}</div>
+    <div class="sdiv">处罚决定阶段</div>
+    <div class="g3">${f('处罚决定作出日期','decisionDate','date',S.t.decisionDate)}${f('决定书送达日期','deliveryDate','date',S.t.deliveryDate)}${f('申请人知悉日期','knowDate','date',S.t.knowDate,'如与送达日相同可留空')}</div>
+  </div>
+  <div id="tlpv"></div>
+  <div class="brow"><button class="btn bo" onclick="goB()">← 返回</button><button class="btn bp" onclick="goN()">下一步：选择争议点 →</button></div>`;
+  renderTL();
+  document.querySelectorAll('input[type=date]').forEach(el=>{el.addEventListener('input',()=>{up(el.id,el.value);renderTL();});});
 }
 
-function goNext() { if (S.step < 7) { S.step++; renderStep(); window.scrollTo(0,0); } }
-function goBack() { if (S.step > 1) { S.step--; renderStep(); window.scrollTo(0,0); } }
-function restart() {
-  if (!confirm('确定重新开始？当前所有填写内容将被清空。')) return;
-  S.step = 1; S.issues = []; S.docA = ''; S.docR = '';
-  Object.keys(S.basic).forEach(k => S.basic[k] = S.basic[k] === S.basic[k] ? '' : S.basic[k]);
-  S.basic.actionType = '行政处罚'; S.basic.decisionReceived = '是'; S.basic.hearingApplied = '否'; S.basic.respondentType = '行政机关';
-  Object.keys(S.timeline).forEach(k => S.timeline[k] = '');
-  renderStep(); window.scrollTo(0,0);
-}
-function escH(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function copyDoc(t) {
-  navigator.clipboard.writeText(t === 'A' ? S.docA : S.docR).then(() => alert('文书已复制到剪贴板'));
-}
-
-// ============ DOCUMENT GENERATION ============
-function genDoc(type) {
-  const T = S.timeline;
-  const B = S.basic;
-  const matched = S.issues.map(id => RULES[id]).filter(Boolean);
-  const app = B.applicant || '申请人';
-  const res = B.respondent || '被申请人机关';
-  const action = B.actionContent || B.actionType;
-  const today = new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});
-  const nums = ['一','二','三','四','五','六','七','八','九','十'];
-
-  // Timeline narrative
-  const tlEvs = [
-    T.violationDate ? `${T.violationDate}${T.violationPlace ? '，' + T.violationPlace : ''}，发生${B.actionType}相关违法事件` : null,
-    T.bloodDate ? `${T.bloodDate}，执法人员对${app}实施抽血取样${T.bloodPlace ? '（地点：' + T.bloodPlace + '）' : ''}` : null,
-    T.expertDate ? `${T.expertDate}，${T.expertOrg || '相关鉴定机构'}出具司法鉴定意见书` : null,
-    T.decisionDate ? `${T.decisionDate}，被申请人作出${action}行政处罚决定${B.decisionNo ? '（' + B.decisionNo + '）' : ''}` : null,
-    T.deliveryDate ? `${T.deliveryDate}，处罚决定书送达申请人` : null,
+function renderTL(){
+  const T=S.t;
+  const evs=[
+    T.violationDate?[T.violationDate,`发生违法行为${T.violationTime?'（'+T.violationTime+'）':''}${T.violationPlace?'，地点：'+T.violationPlace:''}`]:null,
+    T.bloodDate?[T.bloodDate,`执法人员对当事人实施抽血取样${T.bloodTime?'（'+T.bloodTime+'）':''}${T.bloodPlace?'，地点：'+T.bloodPlace:''}`]:null,
+    T.expertDate?[T.expertDate,`${T.expertOrg||'鉴定机构'}出具司法鉴定意见书${T.expertNo?'（'+T.expertNo+'）':''}`]:null,
+    T.decisionDate?[T.decisionDate,`被申请人作出${S.b.actionContent||S.b.actionType}处罚决定${S.b.decisionNo?'（'+S.b.decisionNo+'）':''}`]:null,
+    T.deliveryDate?[T.deliveryDate,'将行政处罚决定书送达申请人']:null,
+    T.knowDate&&T.knowDate!==T.deliveryDate?[T.knowDate,'申请人确认知悉处罚决定内容']:null,
   ].filter(Boolean);
+  const el=document.getElementById('tlpv');
+  if(!evs.length){el.innerHTML='';return;}
+  evs.sort((a,b)=>a[0].localeCompare(b[0]));
+  const warns=[];
+  if(T.decisionDate&&T.deliveryDate){
+    const diff=Math.round((new Date(T.deliveryDate)-new Date(T.decisionDate))/86400000);
+    if(diff>7) warns.push(`⚠ 决定书送达距作出已达 <strong>${diff} 天</strong>，超出《行政处罚法》第六十一条规定的七日法定期限，可能构成程序违法。`);
+    else if(diff>=0) warns.push(`✓ 决定书送达距作出 <strong>${diff} 天</strong>，在七日法定期限内。`);
+  }
+  if(T.violationDate&&T.expertDate){
+    const diff=Math.round((new Date(T.expertDate)-new Date(T.violationDate))/86400000);
+    if(diff>14) warns.push(`⚠ 鉴定意见出具距违法行为发生已达 <strong>${diff} 天</strong>，间隔较长，建议重点关注检材同一性问题。`);
+  }
+  const refDate=T.knowDate||T.deliveryDate;
+  if(refDate){
+    const diff=Math.round((new Date()-new Date(refDate))/86400000);
+    if(diff>55&&diff<=60) warns.push(`⚠ 距知悉处罚决定已过 <strong>${diff} 天</strong>，距六十日申请期限届满仅剩 <strong>${60-diff} 天</strong>，请尽快提交申请！`);
+    if(diff>60) warns.push(`⚠ 距知悉处罚决定已超过 <strong>${diff} 天</strong>，请核查是否存在不可抗力等中断申请期限的事由。`);
+  }
+  el.innerHTML=`<div class="card">
+    <div class="ctitle" style="font-size:14px">时间轴预览与程序分析</div>
+    ${warns.map(w=>`<div class="${w.startsWith('✓')?'gbox':'wbox'}">${w}</div>`).join('')}
+    ${evs.map((e,i)=>`<div class="tl-item">
+      <div class="tl-date">${e[0]}</div>
+      <div class="tl-col"><div class="tl-dot"></div>${i<evs.length-1?'<div class="tl-ln"></div>':''}</div>
+      <div class="tl-lbl">${e[1]}</div>
+    </div>`).join('')}
+  </div>`;}
 
-  if (type === 'A') {
-    const issueParas = matched.length === 0
-      ? `　　一、被申请人在作出本案行政处罚决定的过程中，执法程序存在明显不当之处，相关事实认定亦存在疑问，处罚结果损害了申请人的合法权益，依法应当予以撤销。`
-      : matched.map((r, i) => {
-          return `　　${nums[i]}、${r.title}。\n\n　　${r.analysis.replace(/。/g, '。\n\n　　').replace(/\n\n　　$/, '')}`;
-        }).join('\n\n');
+// ════════════════════════════════════════
+// STEP 4: ISSUES + LAW SELECTOR
+// ════════════════════════════════════════
+function rS4(c){
+  const cats=[...new Set(ISSUES_LIST.map(i=>i.cat))];
+  c.innerHTML=`
+  <div class="card">
+    <div class="ctitle"><span class="sbadge">第四步</span>争议点与法条选择</div>
+    <div class="ibox">📌 勾选争议点，展开后可选择引用的法条。<strong>点击任意法条右侧「查看原文」可展开完整条文。</strong>勾选的法条将自动嵌入文书正文。</div>
+    <div class="sdiv" style="margin-top:.5rem">请勾选本案存在的争议点</div>
+    <div class="cbgrid" id="issueCheckboxes">
+      ${ISSUES_LIST.map(issue=>`
+        <label class="cbi ${S.issues.includes(issue.id)?'on':''}" onclick="togIssue('${issue.id}',this)">
+          <input type="checkbox" ${S.issues.includes(issue.id)?'checked':''}>
+          <div><div class="cb-t"><span class="cat-badge ${issue.cls}" style="font-size:9px;margin-right:4px">${issue.cat}</span>${issue.label}</div><span class="cb-d">${issue.desc}</span></div>
+        </label>`).join('')}
+    </div>
+    <div class="sdiv" style="margin-top:1.5rem">展开已选争议点，选择引用法条</div>
+    <div id="issueDetailCards"></div>
+  </div>
+  <div class="brow"><button class="btn bo" onclick="goB()">← 返回</button><button class="btn bp" onclick="goN()">下一步：规则预览 →</button></div>`;
+  renderIssueDetailCards();
+}
 
-    const lawRefs = [...new Set(matched.map(r => r.law))];
+function togIssue(id,el){
+  const i=S.issues.indexOf(id);
+  if(i>=0){S.issues.splice(i,1);el.classList.remove('on');el.querySelector('input').checked=false;}
+  else{S.issues.push(id);el.classList.add('on');el.querySelector('input').checked=true;
+    if(!S.issueLaws[id]){
+      const issue=ISSUES_LIST.find(x=>x.id===id);
+      S.issueLaws[id]=issue?[...issue.suggestedLaws]:[];
+    }
+  }
+  renderIssueDetailCards();
+}
 
-    S.docA = `行　政　复　议　申　请　书
+function renderIssueDetailCards(){
+  const container=document.getElementById('issueDetailCards');
+  if(!container) return;
+  if(!S.issues.length){container.innerHTML='<div style="font-size:12px;color:var(--tx3);padding:.5rem 0">请在上方勾选争议点后，此处将显示法条选择界面。</div>';return;}
+  container.innerHTML=S.issues.map(id=>{
+    const issue=ISSUES_LIST.find(x=>x.id===id);
+    if(!issue) return '';
+    const selectedLaws=S.issueLaws[id]||[];
+    // Gather all laws available for this issue + all other laws
+    const allLawKeys=[];
+    LAW_DB.acts.forEach(act=>{act.articles.forEach(art=>{allLawKeys.push(act.short+art.no);});});
+    const suggestedKeys=issue.suggestedLaws;
+    const otherKeys=allLawKeys.filter(k=>!suggestedKeys.includes(k));
+    const renderLawItem=(key,isSuggested)=>{
+      const info=LAW_INDEX[key];
+      if(!info) return '';
+      const checked=selectedLaws.includes(key);
+      return `<div class="law-item ${checked?'selected':''}" id="lawitem_${id}_${key.replace(/[《》第\s]/g,'_')}">
+        <div class="law-item-top">
+          <label class="law-item-check" onclick="togLawSel('${id}','${key}',this)">
+            <input type="checkbox" ${checked?'checked':''}>
+            <span class="law-item-name">${info.short} ${info.no}${isSuggested?'　<span style="font-size:10px;color:var(--gn);font-weight:700">推荐</span>':''}</span>
+            <span style="font-size:11px;color:var(--tx3);margin-left:4px">— ${info.title}</span>
+          </label>
+          <button class="law-item-detail-btn" onclick="togLawDetail(this)">查看原文 ▾</button>
+        </div>
+        <div class="law-item-detail">${info.text.replace(/\n/g,'<br>')}</div>
+      </div>`;
+    };
+    return `<div class="icard">
+      <div class="icard-head" onclick="togIcard(this)">
+        <div class="icard-htitle"><span class="cat-badge ${issue.cls}">${issue.cat}</span>${issue.label}</div>
+        <span class="icard-toggle">展开法条选择 ▾</span>
+      </div>
+      <div class="icard-body open">
+        <div class="law-picker-wrap">
+          <div class="law-picker-label">推荐法条（勾选后引入文书）</div>
+          <div class="law-items">${suggestedKeys.map(k=>renderLawItem(k,true)).join('')}</div>
+          <details style="margin-top:8px">
+            <summary style="font-size:11px;color:var(--bl);cursor:pointer;font-weight:700;padding:4px 0">＋ 更多可选法条</summary>
+            <div class="law-items" style="margin-top:6px">${otherKeys.map(k=>renderLawItem(k,false)).join('')}</div>
+          </details>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function togLawSel(issueId,lawKey,el){
+  if(!S.issueLaws[issueId]) S.issueLaws[issueId]=[];
+  const arr=S.issueLaws[issueId];
+  const i=arr.indexOf(lawKey);
+  const cb=el.querySelector('input');
+  const item=el.closest('.law-item');
+  if(i>=0){arr.splice(i,1);if(cb)cb.checked=false;if(item)item.classList.remove('selected');}
+  else{arr.push(lawKey);if(cb)cb.checked=true;if(item)item.classList.add('selected');}
+}
+
+function togLawDetail(btn){
+  const detail=btn.parentElement.nextElementSibling;
+  detail.classList.toggle('open');
+  btn.textContent=detail.classList.contains('open')?'收起 ▴':'查看原文 ▾';
+}
+function togIcard(el){
+  const b=el.nextElementSibling;b.classList.toggle('open');
+  el.querySelector('.icard-toggle').textContent=b.classList.contains('open')?'收起 ▴':'展开法条选择 ▾';
+}
+
+// ════════════════════════════════════════
+// STEP 5: PREVIEW
+// ════════════════════════════════════════
+function rS5(c){
+  const matched=S.issues.map(id=>ISSUES_LIST.find(x=>x.id===id)).filter(Boolean);
+  c.innerHTML=`
+  <div class="card">
+    <div class="ctitle"><span class="sbadge">第五步</span>规则分析预览</div>
+    ${matched.length===0
+      ?'<div class="empty"><div class="ei">📋</div>未选择任何争议点，请返回上一步勾选</div>'
+      :matched.map((r,i)=>{
+        const selLaws=(S.issueLaws[r.id]||[]).map(k=>LAW_INDEX[k]).filter(Boolean);
+        const lawsHtml=selLaws.length?selLaws.map(l=>`<div style="background:#fffdf5;border:.5px solid #e8d890;border-radius:5px;padding:9px 12px;margin-bottom:6px;font-size:12px;color:#3a3000;line-height:1.8"><strong style="font-size:10px;color:#7a6000;letter-spacing:.5px;text-transform:uppercase;display:block;margin-bottom:4px">📖 法条原文</strong>${l.short} ${l.no}　${l.title}<br>${l.text.replace(/\n/g,'<br>')}</div>`).join('')
+        :'<div style="font-size:12px;color:var(--tx3);padding:4px 0">（此争议点未选择法条，请返回上一步选择）</div>';
+        return `<div class="icard">
+          <div class="icard-head" onclick="togIcard(this)">
+            <div class="icard-htitle"><span class="cat-badge ${r.cls}">${r.cat}</span>${i+1}. ${r.label}</div>
+            <span class="icard-toggle">展开 ▾</span>
+          </div>
+          <div class="icard-body open">
+            <div style="margin-top:10px">${lawsHtml}</div>
+            <div class="analysis-block"><div class="analysis-title">论述分析</div><div class="analysis-text">${r.analysis}</div></div>
+          </div>
+        </div>`;
+      }).join('')}
+  </div>
+  <div class="brow"><button class="btn bo" onclick="goB()">← 返回调整</button><button class="btn bp" onclick="goN()">确认，生成申请书 →</button></div>`;}
+
+// ════════════════════════════════════════
+// STEP 6 & 7
+// ════════════════════════════════════════
+function rS6(c){c.innerHTML=`
+  <div class="card">
+    <div class="ctitle"><span class="sbadge">第六步</span>行政复议申请书</div>
+    <div class="ibox">点击下方按钮，系统将根据填写的信息与选择的法条，生成完整文书（完全离线，无需联网）。</div>
+    <div id="docA">${S.docA?docWrap('行政复议申请书','A',S.docA):'<div class="empty"><div class="ei">📄</div>点击下方按钮生成申请书</div>'}</div>
+  </div>
+  <div class="brow"><button class="btn bo" onclick="goB()">← 返回</button>
+    <div class="browr"><button class="btn bg" onclick="genDoc('A')">▶ 生成申请书</button><button class="btn bp" id="s6next" onclick="goN()" ${!S.docA?'disabled':''}>下一步：生成答复书 →</button></div>
+  </div>`;}
+
+function rS7(c){c.innerHTML=`
+  <div class="card">
+    <div class="ctitle"><span class="sbadge">第七步</span>被申请人答复书</div>
+    <div class="ibox">从被申请机关视角生成答复书，逐条回应争议点，完全离线生成。</div>
+    <div id="docR">${S.docR?docWrap('被申请人行政复议答复书','R',S.docR):'<div class="empty"><div class="ei">📄</div>点击下方按钮生成答复书</div>'}</div>
+  </div>
+  <div class="brow"><button class="btn bo" onclick="goB()">← 返回</button>
+    <div class="browr"><button class="btn bg" onclick="genDoc('R')">▶ 生成答复书</button><button class="btn bo" onclick="restart()">🔄 重新开始</button></div>
+  </div>`;}
+
+function docWrap(lbl,t,text){return `<div class="doc-wrap"><div class="doc-hdr"><span class="doc-hlbl">${lbl}</span><button class="copybtn" onclick="cpDoc('${t}')">📋 复制全文</button></div><div class="doc-body">${escH(text)}</div></div>`;}
+
+function goN(){if(S.step<7){S.step++;renderStep();window.scrollTo(0,0);}}
+function goB(){if(S.step>1){S.step--;renderStep();window.scrollTo(0,0);}}
+function restart(){if(!confirm('确定重新开始？'))return;S.step=1;S.issues=[];S.issueLaws={};S.docA='';S.docR='';Object.keys(S.b).forEach(k=>S.b[k]='');S.b.actionType='行政处罚';S.b.decisionReceived='是';S.b.hearingApplied='否';S.b.respondentType='公安机关';S.b.applicantGender='男';Object.keys(S.t).forEach(k=>S.t[k]='');renderStep();window.scrollTo(0,0);}
+function escH(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function cpDoc(t){navigator.clipboard.writeText(t==='A'?S.docA:S.docR).then(()=>alert('文书已复制到剪贴板！'));}
+
+// ════════════════════════════════════════
+// DOCUMENT GENERATION
+// ════════════════════════════════════════
+function genDoc(type){
+  const B=S.b, T=S.t;
+  const matched=S.issues.map(id=>ISSUES_LIST.find(x=>x.id===id)).filter(Boolean);
+  const app=B.applicant||'申请人', res=B.respondent||'被申请人机关', action=B.actionContent||B.actionType;
+  const nums=['一','二','三','四','五','六','七','八','九','十','十一','十二','十三','十四','十五'];
+  const today=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});
+
+  const tlEvs=[
+    T.violationDate?`${T.violationDate}${T.violationTime?' '+T.violationTime:''}，${T.violationPlace?'在'+T.violationPlace+'，':''}发生本案相关违法事件`:null,
+    T.bloodDate?`${T.bloodDate}${T.bloodTime?' '+T.bloodTime:''}，执法人员对申请人${app}实施抽血取样${T.bloodPlace?'（'+T.bloodPlace+'）':''}`:null,
+    T.expertDate?`${T.expertDate}，${T.expertOrg||'相关司法鉴定机构'}出具司法鉴定意见书${T.expertNo?'（编号：'+T.expertNo+'）':''}`:null,
+    T.decisionDate?`${T.decisionDate}，被申请人${res}作出${action}行政处罚决定${B.decisionNo?'（决定书文号：'+B.decisionNo+'）':''}`:null,
+    T.deliveryDate?`${T.deliveryDate}，被申请人将处罚决定书送达申请人`:null,
+  ].filter(Boolean);
+  const tlNarr=tlEvs.length?tlEvs.map((e,i)=>`　　（${i+1}）${e}。`).join('\n'):'　　（时间节点信息未填写。）';
+
+  if(type==='A'){
+    const issueSecs=matched.length===0
+      ?'　　被申请人在作出本案行政处罚决定的过程中，执法程序存在明显不当之处，相关事实认定亦存在疑问，处罚结果损害了申请人的合法权益，依法应当予以撤销。'
+      :matched.map((r,i)=>{
+        const selLaws=(S.issueLaws[r.id]||[]).map(k=>LAW_INDEX[k]).filter(Boolean);
+        const lawBlocks=selLaws.map(l=>`\n　　【相关法条原文】\n　　${l.short} ${l.no}　${l.title}\n　　"${l.text.replace(/\n/g,'\n　　')}"`).join('\n');
+        const analysisParagraphs=r.analysis.split('\n\n').map(p=>`　　${p.trim()}`).join('\n\n');
+        return `　（${nums[i]}）${r.label}\n${lawBlocks}\n\n${analysisParagraphs}`;
+      }).join('\n\n\n');
+
+    const allSelLawKeys=[...new Set(matched.flatMap(r=>S.issueLaws[r.id]||[]))];
+    const lawRefStr=allSelLawKeys.map(k=>{const i=LAW_INDEX[k];return i?i.short+i.no:'';}).filter(Boolean).join('；');
+
+    S.docA=
+`行　政　复　议　申　请　书
 
 
-申　请　人：${app}${B.applicantId ? '，身份证号：' + B.applicantId : ''}
-住　　　所：${B.applicantAddr || '（住所地）'}
-联系电话：${B.applicantPhone || '（联系方式）'}
-${B.agent ? `委托代理人：${B.agent}${B.agentPhone ? '，联系方式：' + B.agentPhone : ''}\n` : ''}
-被申请人：${res}
-住　　　所：${B.respondentAddr || '（被申请人地址）'}
+申　请　人：${app}${B.applicantGender&&B.applicantGender!=='未填写'?'，'+B.applicantGender+'性':''}
+身份证号：${B.applicantId||'（申请人身份证号）'}
+联系电话：${B.applicantPhone||'（申请人联系电话）'}
+通讯地址：${B.applicantAddr||'（申请人通讯地址）'}
+${B.agent?`委托代理人：${B.agent}${B.agentOrg?'，'+B.agentOrg:''}${B.agentPhone?'，联系电话：'+B.agentPhone+'':''}
+`:'委托代理人：无\n'}
+被　申　请　人：${res}
+机　关　住　所：${B.respondentAddr||'（被申请人机关地址）'}
+机　关　性　质：${B.respondentType}
+
+
+　　申请人${app}因不服被申请人${B.decisionNo?'以'+B.decisionNo+'作出的':'作出的'}${action}行政处罚决定，依据《中华人民共和国行政复议法》第六条之规定，特提出行政复议申请，请求复议机关依法审查并作出撤销决定。
 
 
 一、复议请求
 
-　　1. 请求依法撤销被申请人${B.decisionNo ? '以' + B.decisionNo + '作出的' : '作出的'}${action}行政处罚决定；
-　　2. 请求复议机关责令被申请人依法重新作出行政行为；
-　　3. 如认为处罚决定合法但处罚幅度不当，请求依法予以变更，从轻处理。
+　　1. 请求复议机关依法撤销被申请人${B.decisionNo?'以'+B.decisionNo+'作出的':'作出的'}${action}行政处罚决定；
+
+　　2. 请求复议机关责令被申请人依法重新作出行政行为，或依法确认该行政处罚决定违法；
+
+　　3. 如复议机关认为被申请人所认定的违法事实成立，但处罚幅度明显不当，请求依照《行政复议法》第二十八条第一款第（三）项第6目之规定，依法予以变更，在过罚相当原则框架内合理确定处罚幅度。
 
 
 二、事实与理由
 
 （一）案件基本事实
 
-　　${tlEvs.length > 0 ? tlEvs.join('；\n　　') + '。' : '（时间节点未填写，请补充完整）'}
+${tlNarr}
 
-　　申请人认为，被申请人所作${action}行政处罚决定，在认定事实、适用法律及执法程序等方面均存在违法或不当情形，具体理由如下：
+　　对于上述行政处罚决定，申请人认为被申请人在认定事实、适用法律及执法程序等方面均存在违法或不当情形，现依法逐项陈述如下：
 
 （二）违法情形逐项分析
 
-${issueParas}
+${issueSecs}
 
 
-三、法律依据
+三、法律依据汇总
 
-　　依据《中华人民共和国行政复议法》第六条之规定，公民、法人或者其他组织对行政机关作出的行政处罚决定不服的，可以依法申请行政复议。本案申请人系被申请人行政处罚决定的直接相对人，与被申请行政行为具有直接利害关系，依法享有提起行政复议的主体资格。
+　　依据《中华人民共和国行政复议法》第六条之规定："公民、法人或者其他组织认为行政机关的行政行为侵犯其合法权益的，可以自知道或者应当知道该行政行为之日起六十日内提出行政复议申请。"
 
-　　本申请系在申请人知悉上述行政处罚决定之日起六十日内依法提出，符合《行政复议法》第二十三条规定的申请期限要求。
+　　申请人系被申请人行政处罚决定的直接相对人，与被申请行政行为具有直接利害关系，依法享有提起行政复议的主体资格。本复议申请在法定申请期限内提出。
 
-　　综上所述，被申请人作出的${action}行政处罚决定，${matched.length > 0 ? '在' + matched.map(r => r.title).join('、') + '等方面存在违法或不当情形，' : ''}损害了申请人的合法权益。根据《中华人民共和国行政复议法》第二十八条第一款之规定，请求复议机关依法予以撤销，或责令被申请人重新作出行政行为。${B.penaltyAmount ? '若申请人确有违法行为，亦请求复议机关依据比例原则酌情从轻或减轻处罚，而非一律适用最重处罚措施。' : ''}
+　　依据《行政复议法》第二十八条第一款之规定，行政行为有"主要事实不清楚、证据不足"、"适用依据错误"、"违反法定程序"或"明显不当"等情形的，复议机关应当决定撤销、变更或确认该行政行为违法。被申请人作出的${action}行政处罚决定${matched.length>0?'存在'+matched.map(r=>r.label).join('、')+'等问题，':'存在前述违法或不当情形，'}符合上述撤销或变更的法定情形。
 
-${lawRefs.length > 0 ? '主要法律依据：' + lawRefs.join('；') + '。' : ''}
+${lawRefStr?'　　本申请主要引用法律依据：'+lawRefStr+'。':''}
 
-　　以上申请，请复议机关依法审查，维护申请人的合法权益。
+　　综上，申请人恳请复议机关依法审查，撤销被申请人作出的上述行政处罚决定，切实维护申请人的合法权益。
 
 　　此致
 复议机关
 
 
-　　　　　　　　　　　　　　　　申请人：${app}
-　　　　　　　　　　　　　　　　　　　${today}
+　　　　　　　　　　　　　　　　申　请　人：${app}
+　　　　　　　　　　　　　　　　申请日期：${today}
 
 
 附件：
 　　1. 申请人身份证明文件复印件
-　　2. 被申请人行政处罚决定书复印件${B.decisionNo ? '（' + B.decisionNo + '）' : ''}
-　　3. 相关证据材料若干`;
+　　2. 行政处罚决定书复印件${B.decisionNo?'（'+B.decisionNo+'）':''}
+　　3. 相关证据材料（如有）`;
 
-    document.getElementById('docAContent').innerHTML = `<div class="doc-wrap"><div class="doc-toolbar"><span class="doc-label">行政复议申请书</span><button class="copy-btn" onclick="copyDoc('A')">📋 复制全文</button></div><div class="doc-output">${escH(S.docA)}</div></div>`;
-    document.getElementById('btn6next').disabled = false;
+    document.getElementById('docA').innerHTML=docWrap('行政复议申请书','A',S.docA);
+    const nb=document.getElementById('s6next');if(nb)nb.disabled=false;
 
-  } else {
-    // Respondent rebuttal templates
-    const rebuttals = {
-      no_statement: '关于申请人提出"未依法告知陈述申辩权"的问题，被申请人在作出处罚决定之前，已依照《行政处罚法》第四十四条的规定，以书面形式告知申请人拟作出处罚的事实、理由及依据，并明确告知申请人享有陈述和申辩的权利。相关告知记录及申请人的签收材料均存档备查。申请人关于未告知陈述申辩权的主张缺乏事实依据，不能成立。',
-      no_hearing_notice: '关于申请人提出"未依法告知听证权利"的问题，被申请人在作出本案处罚决定时，已依照《行政处罚法》第六十三条的规定，就是否需要告知听证权利进行了严格审查。本案处罚种类及幅度经综合考量后认定不在法定须告知听证的范围之内，且被申请人已以适当方式保障了申请人的程序性权利。',
-      late_delivery: '关于申请人提出"决定书送达超期"的问题，被申请人在作出处罚决定后，依照《行政处罚法》第六十一条及《民事诉讼法》有关送达的规定，及时采取了直接送达方式，并制作了完备的送达回证。如申请人所述的收到时间属实，亦系客观因素所致，非被申请人程序违法。送达程序符合法律规定，不存在超期情形。',
-      no_show_id: '关于申请人提出"执法人员未出示证件"的问题，被申请人的执法人员在执法过程中，已依照规定出示了执法证件并说明执法依据。执法记录仪录像显示，执法人员在执法全程均按规范操作，申请人关于未出示证件的陈述与事实不符。',
-      single_officer: '关于申请人提出"执法人员不足两人"的问题，本次执法行动由两名以上具备执法资格的交通警察共同实施，符合《行政处罚法》第五十三条的规定。执法记录及执勤部署记录可以证明上述事实，申请人的主张不能成立。',
-      expert_noserve: '关于申请人提出"司法鉴定意见未送达"的问题，司法鉴定意见书系被申请人据以作出处罚决定的重要证据，在作出处罚决定前，被申请人已依法将主要事实、理由及依据以书面形式告知申请人，并给予申请人充分的陈述和申辩机会。如申请人对鉴定意见有异议，应在陈述申辩阶段提出，而非在复议阶段作为程序违法的理由。',
-      blood_illegal: '关于申请人提出"抽血取样程序违规"的问题，本案血液样品由具有执业资质的医护人员在符合卫生规范的医疗机构依法采集，采集全程有执法记录，采集完毕后当场封装、编号，并由双方共同确认签字。取样程序完全符合《道路交通事故处理程序规定》及《血液酒精含量检验作业规范》的要求。',
-      sample_chain: '关于申请人提出"检材保管链条断裂"的问题，检材自取样至送达鉴定机构全程均有完整的交接记录，封装状态完好，封存标签清晰，无污染或掉换可能。被申请人保存有完整的检材交接台账，证明检材的同一性和合法性，鉴定意见具有充分的证据基础。',
-      expert_unqualified: '关于申请人提出"鉴定机构无资质"的问题，本案鉴定工作由依法经省级司法行政机关审核登记的司法鉴定机构承担，鉴定人员具有相应的执业证书，鉴定机构及鉴定人均具备合法的执业资质，鉴定意见在法律上具有完整的证明效力。',
-      evidence_weak: '关于申请人提出"主要证据不足"的问题，被申请人作出本案处罚决定，有现场执法记录、血液酒精含量鉴定报告、证人证言等多项证据相互印证，证据链条完整，足以证明申请人存在违法事实，符合《行政处罚法》第四十条关于证据充分性的要求。申请人的主张不能推翻上述证据体系。',
-      fact_wrong: '关于申请人提出"事实认定有误"的问题，被申请人在调查取证阶段已依法收集了充分的证据，对违法事实进行了全面核实。认定申请人存在违法行为的事实依据充分、清楚，并非主观推断，申请人关于事实认定错误的主张缺乏证据支持。',
-      law_wrong: '关于申请人提出"适用法律错误"的问题，被申请人在作出处罚决定时，已对本案违法行为的性质、类型及法律适用进行了严格审查，所援引的法律条款与本案事实情形完全吻合，不存在适用法律条款错误或扩大适用的情形。',
-      proportion: '关于申请人提出"处罚幅度明显过重"的问题，被申请人在作出处罚决定时，已综合考量了违法行为的性质、情节、社会危害程度及当事人的主观状态等因素，在法定处罚幅度内作出了适当的处罚，符合《行政处罚法》第五条确立的过罚相当原则，不存在处罚畸重的情形。',
-      no_mitigate: '关于申请人提出"未适用从轻减轻情节"的问题，被申请人在作出处罚决定前，已依照《行政处罚法》第三十二条的规定，对申请人是否存在法定从轻减轻情节进行了充分审查，经查申请人不具备法律规定的应当从轻或减轻处罚的情形，故未予适用从宽处理。',
-      repeat_punish: '关于申请人提出"重复处罚"的问题，被申请人经核查，申请人此前并未因同一违法行为受到行政处罚，本次处罚系首次就该违法行为依法作出，不存在"一事多罚"的情形，完全符合《行政处罚法》第二十九条的规定。',
-    };
+  }else{
+    const rebuttalSecs=matched.length===0
+      ?'　　被申请人在执法过程中，严格依照法定职权和法定程序履行了各项执法职责，认定事实清楚，证据充分，适用法律正确，处罚程序合法，处罚幅度适当，请求复议机关依法维持原处罚决定。'
+      :matched.map((r,i)=>{
+        const selLaws=(S.issueLaws[r.id]||[]).map(k=>LAW_INDEX[k]).filter(Boolean);
+        const lawBlock=selLaws.length?`\n　　【相关法条原文】\n　　${selLaws[0].short} ${selLaws[0].no}　${selLaws[0].title}\n　　"${selLaws[0].text.replace(/\n/g,'\n　　')}"\n`:'';
+        return `　（${nums[i]}）关于申请人提出"${r.label}"的问题\n${lawBlock}\n　　${r.rebuttal}`;
+      }).join('\n\n\n');
 
-    const rebuttalParas = S.issues.length === 0
-      ? `　　被申请人在执法过程中，严格依照法定职权和法定程序履行了各项执法职责。认定申请人违法行为的事实清楚，证据确实充分，适用法律正确，处罚程序合法，处罚幅度适当，符合《行政处罚法》的全部要求。`
-      : S.issues.map((id, i) => {
-          const r = RULES[id];
-          const rb = rebuttals[id] || '被申请人依法履行了相应职责，不存在申请人所述违法情形。';
-          return `　　${nums[i]}、${rb}`;
-        }).join('\n\n');
-
-    S.docR = `行　政　复　议　答　复　书
+    S.docR=
+`行　政　复　议　答　复　书
 
 
 答复人（被申请人）：${res}
-地　　　址：${B.respondentAddr || '（被申请人地址）'}
+机　关　住　所：${B.respondentAddr||'（被申请人机关地址）'}
+机　关　性　质：${B.respondentType}
 针对申请人：${app}
-复议事项：对${action}行政处罚决定申请行政复议一案
+复议事项：对${B.decisionNo||''}${action}行政处罚决定申请行政复议一案
 
 
-　　申请人${app}就被申请人作出的${action}行政处罚决定${B.decisionNo ? '（' + B.decisionNo + '）' : ''}申请行政复议，被申请人现依法作出如下答复：
+　　申请人${app}就被申请人作出的${action}行政处罚决定${B.decisionNo?'（'+B.decisionNo+'）':''}申请行政复议，被申请人现依法作出如下答复：
 
 
 一、案件事实经过
 
-　　${tlEvs.length > 0 ? tlEvs.join('；\n　　') + '。' : '（时间节点未填写）'}
+${tlNarr}
 
-　　被申请人依据上述查明的事实，援引${B.legalBasis || '相关法律法规'}，对申请人作出${action}行政处罚决定，处罚依据充分，程序合法，处罚结果适当。
+　　被申请人依据上述查明的事实，援引${B.legalBasis||'相关法律法规'}，依法对申请人作出${action}行政处罚决定。被申请人认为，该处罚决定认定事实清楚，证据确实充分，适用法律正确，执法程序合法，处罚幅度适当。
 
 
-二、对申请人复议请求及理由的逐项答复
+二、对申请人各项复议理由的逐条答复
 
-${rebuttalParas}
+${rebuttalSecs}
 
 
 三、被申请人综合意见
 
-　　（一）关于事实认定。被申请人在调查阶段收集了充分的证据，包括现场执法记录、血液酒精含量检测报告${T.expertOrg ? '（由' + T.expertOrg + '出具）' : ''}等，上述证据相互印证，足以认定申请人存在违法事实，符合《行政处罚法》第四十条关于"事实清楚，证据充分"的要求。
+　　（一）关于事实认定的合法性
 
-　　（二）关于法律适用。被申请人援引的法律依据明确，所适用的具体条款与本案违法事实高度吻合，不存在适用法律错误或超越职权的情形。
+　　被申请人在调查阶段，依照《行政处罚法》第五十三条的规定，对本案违法事实进行了全面、客观、公正的调查，收集了包括现场执法录像、执法记录、血液取样及封装记录、司法鉴定意见书${T.expertNo?'（编号'+T.expertNo+'）':''}${T.expertOrg?'（'+T.expertOrg+'出具）':''}在内的多项证据材料，上述证据相互印证，形成完整的证据链条，足以证明申请人存在违法行为，完全符合《行政处罚法》第四十条关于"事实清楚、证据充分"的法定要求。
 
-　　（三）关于执法程序。被申请人在执法全过程严格遵守《行政处罚法》规定的程序要求，依法履行了立案、调查、告知、决定、送达等各环节的程序义务，执法程序合法，不存在申请人所指称的程序违法情形。
+　　（二）关于法律适用的准确性
 
-　　（四）关于处罚幅度。本案处罚系在法定幅度内依照过罚相当原则综合裁量的结果，充分考虑了违法行为的性质、情节及社会危害程度，处罚结果公正合理，符合《行政处罚法》第五条之规定。
+　　被申请人援引${B.legalBasis||'相关法律法规'}对申请人违法行为进行定性，所援引的法律条款与本案违法行为的构成要件高度吻合，不存在适用条款错误、超越法律授权或类推适用的情形，法律适用准确，符合《行政处罚法》第三条关于"依法设定、依法实施"的基本要求。
+
+　　（三）关于执法程序的合法性
+
+　　被申请人在执法全过程中，严格遵守《行政处罚法》规定的程序要求，依法完成了立案、调查取证、告知陈述申辩权${S.b.hearingApplied!=='否'?'、告知听证权利':''}、作出处罚决定、送达处罚决定书等各项法定程序，执法程序合规，不存在申请人所指称的程序违法情形。
+
+　　（四）关于处罚幅度的适当性
+
+　　被申请人在确定处罚幅度时，依照《行政处罚法》第五条确立的过罚相当原则，综合考量了申请人违法行为的事实、性质、情节及社会危害程度，在法定处罚幅度内审慎行使裁量权，所确定的处罚种类和幅度与违法行为的严重程度相适应，不存在处罚畸重或显失公正的情形。
 
 
 四、答复结论
 
-　　综上所述，被申请人作出的${action}行政处罚决定${B.decisionNo ? '（' + B.decisionNo + '）' : ''}，事实清楚，证据确实充分，适用法律正确，程序合法，处罚幅度适当，符合《中华人民共和国行政处罚法》的全部要求。申请人提出的复议理由均不能成立，其复议请求缺乏事实和法律依据。
+　　综上所述，被申请人作出的${action}行政处罚决定${B.decisionNo?'（'+B.decisionNo+'）':''}，认定事实清楚，证据确实充分，适用法律正确，执法程序合法，处罚幅度适当，符合《中华人民共和国行政处罚法》的全部要求。申请人提出的复议理由均不能成立，其复议请求缺乏事实和法律依据。
 
-　　被申请人请求复议机关依照《行政复议法》第二十八条第一款第（一）项之规定，依法维持被申请人作出的上述行政处罚决定。
+　　依据《中华人民共和国行政复议法》第二十八条第一款第（一）项之规定："行政行为认定事实清楚，证据确凿，适用依据正确，程序合法，内容适当的，决定维持。"被申请人请求复议机关依法维持本机关作出的上述行政处罚决定。
 
 　　此致
 复议机关
 
 
-　　　　　　　　　　　　　　被申请人：${res}
-　　　　　　　　　　　　　　　　　　${today}
+　　　　　　　　　　　　　　被　申　请　人：${res}
+　　　　　　　　　　　　　　答复日期：${today}
 
 
 附件：
-　　1. 被申请人行政处罚决定书（${B.decisionNo || '编号'}）
-　　2. 现场执法记录及执法录像
-　　3. 司法鉴定意见书（${T.expertOrg || '鉴定机构'}）
-　　4. 送达回证
-　　5. 其他相关证据材料`;
+　　1. 被申请人行政处罚决定书${B.decisionNo?'（'+B.decisionNo+'）':''}及告知书
+　　2. 现场执法录像及执法记录
+　　3. 司法鉴定意见书${T.expertNo?'（'+T.expertNo+'）':''}${T.expertOrg?'（'+T.expertOrg+'出具）':''}
+　　4. 血液取样及检材封装保管记录
+　　5. 送达回证
+　　6. 其他相关证据材料`;
 
-    document.getElementById('docRContent').innerHTML = `<div class="doc-wrap"><div class="doc-toolbar"><span class="doc-label">被申请人答复书</span><button class="copy-btn" onclick="copyDoc('R')">📋 复制全文</button></div><div class="doc-output">${escH(S.docR)}</div></div>`;
+    document.getElementById('docR').innerHTML=docWrap('被申请人行政复议答复书','R',S.docR);
   }
 }
 
